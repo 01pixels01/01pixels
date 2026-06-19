@@ -1,0 +1,326 @@
+﻿"use client";
+
+import { useState, useRef, useEffect, useCallback } from "react";
+import { usePathname } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { X, Send, Minimize2, Bot, User } from "lucide-react";
+import { getContextualGreeting } from "@/lib/ai/prompts";
+
+interface Message {
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+  timestamp: Date;
+}
+
+export function ChatWidget() {
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+  const [minimized, setMinimized] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [showPulse, setShowPulse] = useState(true);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Initial greeting when chat opens
+  useEffect(() => {
+    if (open && messages.length === 0) {
+      const greeting = getContextualGreeting(pathname);
+      setMessages([
+        {
+          id: "init",
+          role: "assistant",
+          content: greeting,
+          timestamp: new Date(),
+        },
+      ]);
+    }
+  }, [open, messages.length, pathname]);
+
+  useEffect(() => {
+    if (open && !minimized) {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      inputRef.current?.focus();
+    }
+  }, [messages, open, minimized]);
+
+  // Show pulse after 5 seconds
+  useEffect(() => {
+    const t = setTimeout(() => setShowPulse(true), 5000);
+    return () => clearTimeout(t);
+  }, []);
+
+  const sendMessage = useCallback(async () => {
+    if (!input.trim() || loading) return;
+
+    const userMsg: Message = {
+      id: Date.now().toString(),
+      role: "user",
+      content: input.trim(),
+      timestamp: new Date(),
+    };
+
+    setMessages((prev) => [...prev, userMsg]);
+    setInput("");
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: [...messages, userMsg].map((m) => ({
+            role: m.role,
+            content: m.content,
+          })),
+          pageContext: pathname,
+        }),
+      });
+
+      if (!res.ok) throw new Error("Error en la respuesta");
+
+      const reader = res.body?.getReader();
+      const decoder = new TextDecoder();
+
+      const assistantMsg: Message = {
+        id: (Date.now() + 1).toString(),
+        role: "assistant",
+        content: "",
+        timestamp: new Date(),
+      };
+
+      setMessages((prev) => [...prev, assistantMsg]);
+
+      if (reader) {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          const chunk = decoder.decode(value);
+          const lines = chunk.split("\n");
+
+          for (const line of lines) {
+            if (line.startsWith("data: ")) {
+              const data = line.slice(6);
+              if (data === "[DONE]") break;
+              try {
+                const parsed = JSON.parse(data);
+                const text = parsed.choices?.[0]?.delta?.content || "";
+                if (text) {
+                  setMessages((prev) =>
+                    prev.map((m) =>
+                      m.id === assistantMsg.id
+                        ? { ...m, content: m.content + text }
+                        : m
+                    )
+                  );
+                }
+              } catch {
+                // skip malformed chunks
+              }
+            }
+          }
+        }
+      }
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: Date.now().toString(),
+          role: "assistant",
+          content:
+            "Lo siento, hubo un error. Por favor escríbenos directamente a contacto@01pixels.net o por WhatsApp.",
+          timestamp: new Date(),
+        },
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  }, [input, loading, messages, pathname]);
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
+
+  const quickOptions = [
+    "Quiero automatizar mis procesos",
+    "Necesito marketing digital",
+    "Quiero cámaras de seguridad",
+    "¿Cuánto cuestan sus servicios?",
+  ];
+
+  return (
+    <>
+      {/* Chat window */}
+      {open && (
+        <div
+          className={cn(
+            "fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-96 transition-all duration-300",
+            minimized ? "h-14" : "h-[540px]"
+          )}
+        >
+          <div className="flex flex-col h-full glass rounded-2xl border border-blue-500/20 shadow-[0_0_48px_rgba(0,0,0,0.8),0_0_24px_rgba(59,130,246,0.15)] overflow-hidden">
+            {/* Header */}
+            <div className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-blue-600/20 to-purple-600/10 border-b border-white/5">
+              <div className="relative">
+                <div className="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center">
+                  <Bot className="w-5 h-5 text-white" />
+                </div>
+                <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full border-2 border-[#0a0b14]" />
+              </div>
+              <div className="flex-1">
+                <p className="text-sm font-semibold text-white">PIXI</p>
+                <p className="text-xs text-emerald-400">Asesor virtual · En línea</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={() => setMinimized(!minimized)}
+                  className="p-1.5 text-slate-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                  aria-label="Minimizar"
+                >
+                  <Minimize2 className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => setOpen(false)}
+                  className="p-1.5 text-slate-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                  aria-label="Cerrar"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            {!minimized && (
+              <>
+                {/* Messages */}
+                <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                  {messages.map((msg) => (
+                    <div
+                      key={msg.id}
+                      className={cn(
+                        "flex gap-2.5",
+                        msg.role === "user" ? "justify-end" : "justify-start"
+                      )}
+                    >
+                      {msg.role === "assistant" && (
+                        <div className="w-7 h-7 rounded-full bg-blue-600/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <Bot className="w-3.5 h-3.5 text-blue-400" />
+                        </div>
+                      )}
+                      <div
+                        className={cn(
+                          "max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed",
+                          msg.role === "user"
+                            ? "bg-blue-600 text-white rounded-br-sm"
+                            : "bg-white/5 text-slate-200 border border-white/8 rounded-bl-sm"
+                        )}
+                      >
+                        {msg.content || (
+                          <span className="flex gap-1">
+                            <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0ms]" />
+                            <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:150ms]" />
+                            <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:300ms]" />
+                          </span>
+                        )}
+                      </div>
+                      {msg.role === "user" && (
+                        <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <User className="w-3.5 h-3.5 text-slate-300" />
+                        </div>
+                      )}
+                    </div>
+                  ))}
+
+                  {/* Quick options (only at start) */}
+                  {messages.length === 1 && (
+                    <div className="flex flex-col gap-2 mt-2">
+                      <p className="text-xs text-slate-500 text-center">
+                        Opciones rápidas:
+                      </p>
+                      {quickOptions.map((opt) => (
+                        <button
+                          key={opt}
+                          onClick={() => {
+                            setInput(opt);
+                            setTimeout(() => sendMessage(), 50);
+                          }}
+                          className="text-left text-xs px-3 py-2 rounded-xl border border-blue-500/20 text-blue-300 hover:bg-blue-500/10 hover:border-blue-500/40 transition-all duration-200"
+                        >
+                          {opt}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+                  <div ref={messagesEndRef} />
+                </div>
+
+                {/* Input */}
+                <div className="p-3 border-t border-white/5">
+                  <div className="flex items-center gap-2">
+                    <input
+                      ref={inputRef}
+                      type="text"
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      onKeyDown={handleKeyDown}
+                      placeholder="Escribe tu mensaje..."
+                      disabled={loading}
+                      className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500/50 focus:bg-white/8 transition-all disabled:opacity-50"
+                    />
+                    <button
+                      onClick={sendMessage}
+                      disabled={!input.trim() || loading}
+                      className="w-10 h-10 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center transition-all duration-200 flex-shrink-0 shadow-[0_0_16px_rgba(37,99,235,0.4)]"
+                      aria-label="Enviar mensaje"
+                    >
+                      <Send className="w-4 h-4 text-white" />
+                    </button>
+                  </div>
+                  <p className="text-center text-[10px] text-slate-600 mt-2">
+                    PIXI · Asesor IA de 01pixels • Respuesta en segundos
+                  </p>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Floating button */}
+      <button
+        onClick={() => {
+          setOpen(!open);
+          setShowPulse(false);
+          setMinimized(false);
+        }}
+        className={cn(
+          "fixed bottom-6 right-4 sm:right-6 z-50 w-14 h-14 rounded-2xl bg-blue-600 hover:bg-blue-500 flex items-center justify-center shadow-[0_0_32px_rgba(37,99,235,0.5)] hover:shadow-[0_0_48px_rgba(59,130,246,0.65)] transition-all duration-300 hover:scale-110 active:scale-95",
+          open && "rotate-0"
+        )}
+        aria-label="Abrir chat con PIXI, asesor IA de 01pixels"
+      >
+        {open ? (
+          <X className="w-6 h-6 text-white" />
+        ) : (
+          <Bot className="w-6 h-6 text-white" />
+        )}
+        {/* Pulse ring */}
+        {showPulse && !open && (
+          <>
+            <span className="absolute inset-0 rounded-2xl bg-blue-500 animate-ping opacity-30" />
+            <span className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-emerald-400 rounded-full border-2 border-[#050508] flex items-center justify-center">
+              <span className="text-[8px] font-bold text-[#050508]">IA</span>
+            </span>
+          </>
+        )}
+      </button>
+    </>
+  );
+}
