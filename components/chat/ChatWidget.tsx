@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { X, Send, Minimize2, User } from "lucide-react";
 import { getContextualGreeting } from "@/lib/ai/prompts";
+import { PIXIHead } from "@/components/experience/PIXIHead";
 
 function PIXIOrbitIcon({ size = 40 }: { size?: number }) {
   const r = size / 2;
@@ -257,12 +258,9 @@ export function ChatWidget() {
         >
           <div className="flex flex-col h-full glass rounded-2xl border border-blue-500/20 shadow-[0_0_48px_rgba(0,0,0,0.8),0_0_24px_rgba(59,130,246,0.15)] overflow-hidden">
             {/* Header */}
-            <div className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-blue-600/20 to-purple-600/10 border-b border-white/5">
+            <div className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-[#00E5FF]/10 to-[#7C3AED]/10 border-b border-white/5">
               <div className="relative">
-                <div className="w-9 h-9 rounded-xl bg-[#0d1628] border border-blue-500/40 flex items-center justify-center"
-                  style={{ boxShadow: "0 0 10px rgba(59,130,246,0.3)" }}>
-                  <PIXIOrbitIcon />
-                </div>
+                <PIXIHead size={40} trackLocal />
                 <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full border-2 border-[#0a0b14]" />
               </div>
               <div className="flex-1">
@@ -300,8 +298,8 @@ export function ChatWidget() {
                       )}
                     >
                       {msg.role === "assistant" && (
-                        <div className="w-7 h-7 rounded-lg bg-[#0d1628] border border-blue-500/30 flex items-center justify-center flex-shrink-0 mt-0.5 scale-75">
-                          <PIXIOrbitIcon />
+                        <div className="flex-shrink-0 mt-0.5">
+                          <PIXIHead size={28} />
                         </div>
                       )}
                       <div
@@ -392,21 +390,21 @@ export function ChatWidget() {
           setMinimized(false);
         }}
         className={cn(
-          "fixed bottom-6 right-4 sm:right-6 z-50 w-16 h-16 rounded-2xl bg-[#0d1628] border border-blue-500/40 flex items-center justify-center shadow-[0_0_32px_rgba(37,99,235,0.5)] hover:shadow-[0_0_48px_rgba(59,130,246,0.7)] transition-all duration-300 hover:scale-110 active:scale-95 hover:border-blue-400/60",
+          "fixed bottom-6 right-4 sm:right-6 z-50 w-16 h-16 rounded-2xl bg-[#0d0d0d] border border-[#00E5FF]/25 flex items-center justify-center shadow-[0_0_32px_rgba(0,229,255,0.2)] hover:shadow-[0_0_48px_rgba(0,229,255,0.4)] transition-all duration-300 hover:scale-110 active:scale-95 hover:border-[#00E5FF]/50",
           open && "rotate-0"
         )}
         aria-label="Abrir chat con PIXI, asesor IA de 01pixels"
       >
         {open ? (
-          <X className="w-6 h-6 text-blue-400" />
+          <X className="w-6 h-6 text-[#00E5FF]" />
         ) : (
-          <PIXIOrbitIcon />
+          <PIXIHead size={48} trackLocal />
         )}
         {showPulse && !open && (
           <>
-            <span className="absolute inset-0 rounded-2xl bg-blue-500 animate-ping opacity-20" />
-            <span className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-emerald-400 rounded-full border-2 border-[#050508] flex items-center justify-center">
-              <span className="text-[8px] font-bold text-[#050508]">IA</span>
+            <span className="absolute inset-0 rounded-2xl bg-[#00E5FF] animate-ping opacity-10" />
+            <span className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-[#00FF88] rounded-full border-2 border-[#050505] flex items-center justify-center">
+              <span className="text-[8px] font-bold text-[#050505]">IA</span>
             </span>
           </>
         )}

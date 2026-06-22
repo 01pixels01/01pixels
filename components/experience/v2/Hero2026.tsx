@@ -56,6 +56,7 @@ export function Hero2026() {
           className="w-full h-full object-cover"
           style={{ filter: "brightness(0.55) saturate(1.3)" }}
         >
+          <source src="/hero-bg-opt.mp4" type="video/mp4" />
           <source src="/hero-bg.mp4" type="video/mp4" />
         </video>
       </motion.div>
