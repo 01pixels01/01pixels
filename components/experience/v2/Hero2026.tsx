@@ -54,7 +54,7 @@ export function Hero2026() {
           playsInline
           preload="auto"
           className="w-full h-full object-cover"
-          style={{ filter: "brightness(0.55) saturate(1.3)" }}
+          style={{ filter: "brightness(0.75) saturate(1.2)" }}
         >
           <source src="/hero-bg-opt.mp4" type="video/mp4" />
           <source src="/hero-bg.mp4" type="video/mp4" />
@@ -63,12 +63,12 @@ export function Hero2026() {
 
       {/* ── CAPAS DE PROFUNDIDAD / COLOR GRADING ── */}
 
-      {/* 1. Tinte oscuro base */}
-      <div className="absolute inset-0 z-[1] bg-[#050505]/30" />
+      {/* 1. Tinte oscuro base — sutil */}
+      <div className="absolute inset-0 z-[1] bg-[#050505]/15" />
 
       {/* 2. Viñeta perimetral */}
       <div className="absolute inset-0 z-[2]"
-        style={{ background: "radial-gradient(ellipse 100% 100% at 50% 50%, transparent 40%, rgba(5,5,5,0.85) 100%)" }}
+        style={{ background: "radial-gradient(ellipse 100% 100% at 50% 50%, transparent 45%, rgba(5,5,5,0.70) 100%)" }}
       />
 
       {/* 3. Glow cyan arriba */}
