@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 
 export function PIXICursor() {
   const pixiRef = useRef<HTMLDivElement>(null);
@@ -66,7 +65,8 @@ export function PIXICursor() {
       {/* Custom cursor dot */}
       <div
         ref={cursorRef}
-        className="fixed top-0 left-0 z-[9999] w-2 h-2 bg-blue-400 rounded-full pointer-events-none mix-blend-difference transition-opacity duration-300"
+        className="fixed top-0 left-0 z-[9999] w-1.5 h-1.5 rounded-full pointer-events-none"
+        style={{ background: "#00E5FF", boxShadow: "0 0 6px #00E5FF" }}
         style={{ willChange: "transform" }}
       />
 
@@ -78,43 +78,73 @@ export function PIXICursor() {
       >
         {/* Speech bubble */}
         {talking && (
-          <div className="absolute -top-14 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[#0d1628] border border-blue-500/30 text-blue-300 text-xs font-medium px-3 py-2 rounded-xl shadow-[0_0_16px_rgba(59,130,246,0.2)] animate-fade-in">
+          <div className="absolute -top-14 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[#0D0D0D] border border-[#00E5FF]/25 text-[#00E5FF] text-xs font-medium px-3 py-2 rounded-xl shadow-[0_0_16px_rgba(0,229,255,0.15)]">
             {message}
-            <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-[#0d1628] border-r border-b border-blue-500/30 rotate-45" />
+            <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-[#0D0D0D] border-r border-b border-[#00E5FF]/25 rotate-45" />
           </div>
         )}
 
-        {/* PIXI robot */}
-        <div className="w-14 h-14 relative">
-          <Image
-            src="/pixi-robot.png"
-            alt="PIXI"
-            width={56}
-            height={56}
-            className="w-14 h-14 object-contain drop-shadow-[0_0_12px_rgba(59,130,246,0.6)]"
-            onError={() => {
-              /* fallback rendered below if image missing */
+        {/* PIXI orbit cursor */}
+        <div className="w-14 h-14 relative flex items-center justify-center">
+          <style>{`
+            @keyframes pixi-c-orbit-1 {
+              from { transform: rotate(0deg)   translateX(18px) rotate(0deg); }
+              to   { transform: rotate(360deg) translateX(18px) rotate(-360deg); }
+            }
+            @keyframes pixi-c-orbit-2 {
+              from { transform: rotate(120deg)   translateX(18px) rotate(-120deg); }
+              to   { transform: rotate(480deg)   translateX(18px) rotate(-480deg); }
+            }
+            @keyframes pixi-c-orbit-3 {
+              from { transform: rotate(240deg)   translateX(18px) rotate(-240deg); }
+              to   { transform: rotate(600deg)   translateX(18px) rotate(-600deg); }
+            }
+          `}</style>
+
+          {/* Outer glow ring */}
+          <div className="absolute w-12 h-12 rounded-full border border-[#00E5FF]/15" />
+
+          {/* Inner ring */}
+          <div className="absolute w-7 h-7 rounded-full border border-[#7C3AED]/20" />
+
+          {/* Nucleus */}
+          <div
+            className="absolute w-3 h-3 rounded-full"
+            style={{
+              background: "radial-gradient(circle, #00E5FF 0%, #7C3AED 100%)",
+              boxShadow: "0 0 8px rgba(0,229,255,0.9), 0 0 16px rgba(124,58,237,0.5)",
             }}
           />
-          {/* Fallback SVG robot if no image */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-10 h-10 relative">
-              {/* Head */}
-              <div className="absolute top-0 left-1 right-1 h-6 bg-[#1a1f35] border border-blue-500/50 rounded-lg shadow-[0_0_10px_rgba(59,130,246,0.4)] flex items-center justify-center gap-1">
-                <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse" />
-                <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse [animation-delay:200ms]" />
-              </div>
-              {/* Body */}
-              <div className="absolute bottom-0 left-0 right-0 h-4 bg-[#1a1f35] border border-blue-500/50 rounded-md">
-                <div className="grid grid-cols-2 gap-0.5 p-1">
-                  <div className="bg-orange-500/80 rounded-sm h-1" />
-                  <div className="bg-teal-500/80 rounded-sm h-1" />
-                  <div className="bg-green-500/80 rounded-sm h-1" />
-                  <div className="bg-blue-500/80 rounded-sm h-1" />
-                </div>
-              </div>
-            </div>
-          </div>
+
+          {/* Dot 1 — cyan */}
+          <div
+            className="absolute w-2.5 h-2.5 rounded-full"
+            style={{
+              background: "#00E5FF",
+              boxShadow: "0 0 6px #00E5FF, 0 0 12px rgba(0,229,255,0.5)",
+              animation: "pixi-c-orbit-1 1.6s linear infinite",
+            }}
+          />
+
+          {/* Dot 2 — purple */}
+          <div
+            className="absolute w-2 h-2 rounded-full"
+            style={{
+              background: "#7C3AED",
+              boxShadow: "0 0 6px #7C3AED, 0 0 12px rgba(124,58,237,0.5)",
+              animation: "pixi-c-orbit-2 1.6s linear infinite",
+            }}
+          />
+
+          {/* Dot 3 — green */}
+          <div
+            className="absolute w-1.5 h-1.5 rounded-full"
+            style={{
+              background: "#00FF88",
+              boxShadow: "0 0 6px #00FF88, 0 0 12px rgba(0,255,136,0.5)",
+              animation: "pixi-c-orbit-3 1.6s linear infinite",
+            }}
+          />
         </div>
       </div>
     </>
