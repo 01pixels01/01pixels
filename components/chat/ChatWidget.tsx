@@ -7,23 +7,60 @@ import { cn } from "@/lib/utils";
 import { X, Send, Minimize2, User } from "lucide-react";
 import { getContextualGreeting } from "@/lib/ai/prompts";
 
-function PIXIRobotIcon() {
+function PIXIOrbitIcon({ size = 40 }: { size?: number }) {
+  const r = size / 2;
+  const dots = [
+    { angle: 0,   color: "#00E5FF", delay: "0s",    orbit: r * 0.72 },
+    { angle: 120, color: "#7C3AED", delay: "0.15s", orbit: r * 0.72 },
+    { angle: 240, color: "#00FF88", delay: "0.30s", orbit: r * 0.72 },
+  ];
+
   return (
-    <div className="relative w-10 h-10 flex flex-col items-center justify-center gap-0.5">
-      {/* Head */}
-      <div className="w-8 h-5 bg-gradient-to-b from-[#1a2a4a] to-[#0d1628] rounded-lg border border-blue-500/50 flex items-center justify-center gap-1.5"
-        style={{ boxShadow: "0 0 8px rgba(59,130,246,0.4)" }}>
-        <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse" style={{ boxShadow: "0 0 4px #22d3ee" }} />
-        <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse" style={{ boxShadow: "0 0 4px #22d3ee", animationDelay: "0.3s" }} />
-      </div>
-      {/* Body */}
-      <div className="w-8 h-4 bg-gradient-to-b from-[#1a2a4a] to-[#0d1628] rounded-md border border-blue-500/40 grid grid-cols-2 gap-0.5 p-1"
-        style={{ boxShadow: "0 0 6px rgba(59,130,246,0.2)" }}>
-        <div className="bg-orange-500/80 rounded-sm" style={{ boxShadow: "0 0 3px rgba(249,115,22,0.6)" }} />
-        <div className="bg-teal-400/80 rounded-sm" style={{ boxShadow: "0 0 3px rgba(45,212,191,0.6)" }} />
-        <div className="bg-green-500/80 rounded-sm" style={{ boxShadow: "0 0 3px rgba(16,185,129,0.6)" }} />
-        <div className="bg-blue-500/80 rounded-sm" style={{ boxShadow: "0 0 3px rgba(59,130,246,0.6)" }} />
-      </div>
+    <div
+      className="relative flex items-center justify-center"
+      style={{ width: size, height: size }}
+    >
+      {/* Core nucleus */}
+      <div
+        className="absolute rounded-full"
+        style={{
+          width: size * 0.28,
+          height: size * 0.28,
+          background: "radial-gradient(circle, #00E5FF 0%, #7C3AED 100%)",
+          boxShadow: "0 0 10px rgba(0,229,255,0.7), 0 0 20px rgba(124,58,237,0.4)",
+        }}
+      />
+
+      {/* Orbit ring */}
+      <div
+        className="absolute rounded-full border border-[#00E5FF]/20"
+        style={{ width: size * 0.88, height: size * 0.88 }}
+      />
+
+      {/* Orbiting dots — CSS animation via keyframes injected inline */}
+      <style>{`
+        @keyframes pixi-orbit {
+          from { transform: rotate(0deg) translateX(${size * 0.36}px) rotate(0deg); }
+          to   { transform: rotate(360deg) translateX(${size * 0.36}px) rotate(-360deg); }
+        }
+      `}</style>
+
+      {dots.map((d, i) => (
+        <div
+          key={i}
+          className="absolute rounded-full"
+          style={{
+            width: size * 0.18,
+            height: size * 0.18,
+            background: d.color,
+            boxShadow: `0 0 6px ${d.color}`,
+            animation: `pixi-orbit ${1.8 + i * 0.2}s linear infinite`,
+            animationDelay: d.delay,
+            transformOrigin: "center center",
+            transform: `rotate(${d.angle}deg) translateX(${size * 0.36}px) rotate(-${d.angle}deg)`,
+          }}
+        />
+      ))}
     </div>
   );
 }
@@ -224,7 +261,7 @@ export function ChatWidget() {
               <div className="relative">
                 <div className="w-9 h-9 rounded-xl bg-[#0d1628] border border-blue-500/40 flex items-center justify-center"
                   style={{ boxShadow: "0 0 10px rgba(59,130,246,0.3)" }}>
-                  <PIXIRobotIcon />
+                  <PIXIOrbitIcon />
                 </div>
                 <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full border-2 border-[#0a0b14]" />
               </div>
@@ -264,7 +301,7 @@ export function ChatWidget() {
                     >
                       {msg.role === "assistant" && (
                         <div className="w-7 h-7 rounded-lg bg-[#0d1628] border border-blue-500/30 flex items-center justify-center flex-shrink-0 mt-0.5 scale-75">
-                          <PIXIRobotIcon />
+                          <PIXIOrbitIcon />
                         </div>
                       )}
                       <div
@@ -363,7 +400,7 @@ export function ChatWidget() {
         {open ? (
           <X className="w-6 h-6 text-blue-400" />
         ) : (
-          <PIXIRobotIcon />
+          <PIXIOrbitIcon />
         )}
         {showPulse && !open && (
           <>
