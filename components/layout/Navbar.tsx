@@ -39,7 +39,7 @@ export function Navbar() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         scrolled
-          ? "bg-[#050508]/90 backdrop-blur-xl border-b border-white/5 shadow-[0_1px_0_rgba(59,130,246,0.08)]"
+          ? "bg-[#050505]/90 backdrop-blur-xl border-b border-white/5 shadow-[0_1px_0_rgba(0,229,255,0.06)]"
           : "bg-transparent"
       )}
     >
@@ -53,7 +53,7 @@ export function Navbar() {
                 alt="01pixels"
                 width={180}
                 height={54}
-                className="h-12 w-auto object-contain transition-all duration-500 group-hover:scale-105 group-hover:brightness-110 group-hover:drop-shadow-[0_0_12px_rgba(59,130,246,0.6)]"
+                className="h-12 w-auto object-contain transition-all duration-500 group-hover:scale-105 group-hover:brightness-110 group-hover:drop-shadow-[0_0_12px_rgba(0,229,255,0.5)]"
                 priority
               />
               <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 pointer-events-none" />

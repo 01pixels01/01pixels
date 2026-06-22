@@ -1,24 +1,30 @@
 "use client";
 
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
-import { Scene1Intro } from "@/components/experience/Scene1Intro";
-import { Scene2Network } from "@/components/experience/Scene2Network";
-import { Scene3Oracles } from "@/components/experience/Scene3Oracles";
-import { Scene4Ecosystem } from "@/components/experience/Scene4Ecosystem";
-import { Scene5KPIs } from "@/components/experience/Scene5KPIs";
-import { Scene6PIXIAdvisor } from "@/components/experience/Scene6PIXIAdvisor";
-import { Scene7CTA } from "@/components/experience/Scene7CTA";
+import { Hero2026 } from "./v2/Hero2026";
+import { ProblemSection } from "./v2/ProblemSection";
+import { SolutionOrbit } from "./v2/SolutionOrbit";
+import { ServicesBento } from "./v2/ServicesBento";
+import { CasesSection } from "./v2/CasesSection";
+import { CommandCenter3D } from "./v2/CommandCenter3D";
+import { WhySection } from "./v2/WhySection";
+import { ProcessSection } from "./v2/ProcessSection";
+import { TestimonialsSection } from "./v2/TestimonialsSection";
+import { CTAFinal2026 } from "./v2/CTAFinal2026";
 
 export function CinematicHome() {
   return (
     <SmoothScrollProvider>
-      <Scene1Intro />
-      <Scene2Network />
-      <Scene3Oracles />
-      <Scene4Ecosystem />
-      <Scene5KPIs />
-      <Scene6PIXIAdvisor />
-      <Scene7CTA />
+      <Hero2026 />
+      <ProblemSection />
+      <SolutionOrbit />
+      <ServicesBento />
+      <CasesSection />
+      <CommandCenter3D />
+      <WhySection />
+      <ProcessSection />
+      <TestimonialsSection />
+      <CTAFinal2026 />
     </SmoothScrollProvider>
   );
 }
