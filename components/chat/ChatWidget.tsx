@@ -4,8 +4,29 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { X, Send, Minimize2, Bot, User } from "lucide-react";
+import { X, Send, Minimize2, User } from "lucide-react";
 import { getContextualGreeting } from "@/lib/ai/prompts";
+
+function PIXIRobotIcon() {
+  return (
+    <div className="relative w-10 h-10 flex flex-col items-center justify-center gap-0.5">
+      {/* Head */}
+      <div className="w-8 h-5 bg-gradient-to-b from-[#1a2a4a] to-[#0d1628] rounded-lg border border-blue-500/50 flex items-center justify-center gap-1.5"
+        style={{ boxShadow: "0 0 8px rgba(59,130,246,0.4)" }}>
+        <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse" style={{ boxShadow: "0 0 4px #22d3ee" }} />
+        <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse" style={{ boxShadow: "0 0 4px #22d3ee", animationDelay: "0.3s" }} />
+      </div>
+      {/* Body */}
+      <div className="w-8 h-4 bg-gradient-to-b from-[#1a2a4a] to-[#0d1628] rounded-md border border-blue-500/40 grid grid-cols-2 gap-0.5 p-1"
+        style={{ boxShadow: "0 0 6px rgba(59,130,246,0.2)" }}>
+        <div className="bg-orange-500/80 rounded-sm" style={{ boxShadow: "0 0 3px rgba(249,115,22,0.6)" }} />
+        <div className="bg-teal-400/80 rounded-sm" style={{ boxShadow: "0 0 3px rgba(45,212,191,0.6)" }} />
+        <div className="bg-green-500/80 rounded-sm" style={{ boxShadow: "0 0 3px rgba(16,185,129,0.6)" }} />
+        <div className="bg-blue-500/80 rounded-sm" style={{ boxShadow: "0 0 3px rgba(59,130,246,0.6)" }} />
+      </div>
+    </div>
+  );
+}
 
 interface Message {
   id: string;
@@ -51,6 +72,32 @@ export function ChatWidget() {
   useEffect(() => {
     const t = setTimeout(() => setShowPulse(true), 5000);
     return () => clearTimeout(t);
+  }, []);
+
+  // Detect lead data in assistant response and send to API
+  const detectAndCaptureLead = useCallback(async (allMessages: Message[]) => {
+    const fullConversation = allMessages.map(m => m.content).join(" ");
+    const emailMatch = fullConversation.match(/[\w.-]+@[\w.-]+\.\w+/);
+    const phoneMatch = fullConversation.match(/\b(3\d{9}|\+57\d{10}|57\d{10})\b/);
+    const nameMatch = fullConversation.match(/(?:me llamo|soy|llámame|mi nombre es)\s+([A-ZÁÉÍÓÚa-záéíóú]+(?:\s+[A-ZÁÉÍÓÚa-záéíóú]+)?)/i);
+
+    if (emailMatch && phoneMatch) {
+      try {
+        await fetch("/api/leads", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: nameMatch?.[1] || "Lead desde PIXI",
+            email: emailMatch[0],
+            phone: phoneMatch[0],
+            service: "Consulta vía PIXI Chat",
+            message: allMessages.slice(-6).map(m => `${m.role === "user" ? "Cliente" : "PIXI"}: ${m.content}`).join("\n"),
+          }),
+        });
+      } catch {
+        // silent fail
+      }
+    }
   }, []);
 
   const sendMessage = useCallback(async () => {
@@ -125,6 +172,12 @@ export function ChatWidget() {
           }
         }
       }
+      // After streaming, check if lead data was captured
+      setMessages((prev) => {
+        detectAndCaptureLead(prev);
+        return prev;
+      });
+
     } catch {
       setMessages((prev) => [
         ...prev,
@@ -139,7 +192,7 @@ export function ChatWidget() {
     } finally {
       setLoading(false);
     }
-  }, [input, loading, messages, pathname]);
+  }, [input, loading, messages, pathname, detectAndCaptureLead]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -169,8 +222,9 @@ export function ChatWidget() {
             {/* Header */}
             <div className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-blue-600/20 to-purple-600/10 border-b border-white/5">
               <div className="relative">
-                <div className="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center">
-                  <Bot className="w-5 h-5 text-white" />
+                <div className="w-9 h-9 rounded-xl bg-[#0d1628] border border-blue-500/40 flex items-center justify-center"
+                  style={{ boxShadow: "0 0 10px rgba(59,130,246,0.3)" }}>
+                  <PIXIRobotIcon />
                 </div>
                 <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full border-2 border-[#0a0b14]" />
               </div>
@@ -209,8 +263,8 @@ export function ChatWidget() {
                       )}
                     >
                       {msg.role === "assistant" && (
-                        <div className="w-7 h-7 rounded-full bg-blue-600/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <Bot className="w-3.5 h-3.5 text-blue-400" />
+                        <div className="w-7 h-7 rounded-lg bg-[#0d1628] border border-blue-500/30 flex items-center justify-center flex-shrink-0 mt-0.5 scale-75">
+                          <PIXIRobotIcon />
                         </div>
                       )}
                       <div
@@ -293,7 +347,7 @@ export function ChatWidget() {
         </div>
       )}
 
-      {/* Floating button */}
+      {/* Floating PIXI button */}
       <button
         onClick={() => {
           setOpen(!open);
@@ -301,20 +355,19 @@ export function ChatWidget() {
           setMinimized(false);
         }}
         className={cn(
-          "fixed bottom-6 right-4 sm:right-6 z-50 w-14 h-14 rounded-2xl bg-blue-600 hover:bg-blue-500 flex items-center justify-center shadow-[0_0_32px_rgba(37,99,235,0.5)] hover:shadow-[0_0_48px_rgba(59,130,246,0.65)] transition-all duration-300 hover:scale-110 active:scale-95",
+          "fixed bottom-6 right-4 sm:right-6 z-50 w-16 h-16 rounded-2xl bg-[#0d1628] border border-blue-500/40 flex items-center justify-center shadow-[0_0_32px_rgba(37,99,235,0.5)] hover:shadow-[0_0_48px_rgba(59,130,246,0.7)] transition-all duration-300 hover:scale-110 active:scale-95 hover:border-blue-400/60",
           open && "rotate-0"
         )}
         aria-label="Abrir chat con PIXI, asesor IA de 01pixels"
       >
         {open ? (
-          <X className="w-6 h-6 text-white" />
+          <X className="w-6 h-6 text-blue-400" />
         ) : (
-          <Bot className="w-6 h-6 text-white" />
+          <PIXIRobotIcon />
         )}
-        {/* Pulse ring */}
         {showPulse && !open && (
           <>
-            <span className="absolute inset-0 rounded-2xl bg-blue-500 animate-ping opacity-30" />
+            <span className="absolute inset-0 rounded-2xl bg-blue-500 animate-ping opacity-20" />
             <span className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-emerald-400 rounded-full border-2 border-[#050508] flex items-center justify-center">
               <span className="text-[8px] font-bold text-[#050508]">IA</span>
             </span>
