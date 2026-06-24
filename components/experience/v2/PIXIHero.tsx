@@ -9,18 +9,22 @@ const LINES = ["Hola. Soy PIXI.", "¿Qué deseas transformar hoy?"];
 
 function Typewriter({ text, onDone, delay = 0 }: { text: string; onDone?: () => void; delay?: number }) {
   const [displayed, setDisplayed] = useState("");
+  const onDoneRef = useRef(onDone);
+  onDoneRef.current = onDone;
+
   useEffect(() => {
+    setDisplayed("");
     let i = 0;
     const t = setTimeout(() => {
       const iv = setInterval(() => {
         i++;
         setDisplayed(text.slice(0, i));
-        if (i >= text.length) { clearInterval(iv); onDone?.(); }
+        if (i >= text.length) { clearInterval(iv); onDoneRef.current?.(); }
       }, 38);
       return () => clearInterval(iv);
     }, delay);
     return () => clearTimeout(t);
-  }, [text, delay, onDone]);
+  }, [text, delay]); // onDone fuera de deps — se lee por ref para no reiniciar el effect
   return <span>{displayed}<span className="animate-pulse">|</span></span>;
 }
 
