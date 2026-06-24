@@ -67,8 +67,7 @@ export function PIXICursor() {
       <div
         ref={cursorRef}
         className="fixed top-0 left-0 z-[9999] w-1.5 h-1.5 rounded-full pointer-events-none"
-        style={{ background: "#00E5FF", boxShadow: "0 0 6px #00E5FF" }}
-        style={{ willChange: "transform" }}
+        style={{ background: "#00E5FF", boxShadow: "0 0 6px #00E5FF", willChange: "transform" }}
       />
 
       {/* PIXI mascot */}
