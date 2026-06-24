@@ -1,7 +1,7 @@
 "use client";
 
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
-import { PIXIHero } from "./v2/PIXIHero";
+import { HeroScroll } from "./v3/HeroScroll";
 import { OracleSection } from "./v2/OracleSection";
 import { CasesSection } from "./v2/CasesSection";
 import { CommandCenter3D } from "./v2/CommandCenter3D";
@@ -14,8 +14,8 @@ import { CTAFinal2026 } from "./v2/CTAFinal2026";
 export function CinematicHome() {
   return (
     <SmoothScrollProvider>
-      {/* 1. PIXI despierta — hero narrativo */}
-      <PIXIHero />
+      {/* 1. Hero scroll narrativo — 6 escenas */}
+      <HeroScroll />
       {/* 2. Los tres oráculos */}
       <OracleSection />
       {/* 3. Casos de éxito + KPIs */}
