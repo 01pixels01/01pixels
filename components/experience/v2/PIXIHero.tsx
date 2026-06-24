@@ -118,7 +118,7 @@ export function PIXIHero() {
         )}
       </AnimatePresence>
 
-      <div className="relative z-10 flex flex-col items-center text-center px-4 max-w-3xl mx-auto">
+      <div className="relative z-10 flex flex-col items-center text-center px-4 max-w-3xl mx-auto pt-20">
 
         {/* PIXI head — aparece primero */}
         <AnimatePresence>
