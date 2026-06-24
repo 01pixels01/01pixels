@@ -67,8 +67,8 @@ export function PIXIHead({ size = 48, trackMouse = false, trackLocal = false }: 
   }, []);
 
   const s = size;
-  const eyeRx = s * 0.095;
-  const eyeRy = blink ? 0.5 : s * 0.13;
+  const eyeRx = s * 0.0475;
+  const eyeRy = blink ? 0.5 : s * 0.065;
   const eyeY = s * 0.42;
   const eyeLX = s * 0.35;
   const eyeRX = s * 0.65;
