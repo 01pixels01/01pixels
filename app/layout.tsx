@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "01pixels" }],
   creator: "01pixels",
-  metadataBase: new URL("https://01pixels.com"),
+  metadataBase: new URL("https://01pixels.net"),
   openGraph: {
     type: "website",
     locale: "es_CO",

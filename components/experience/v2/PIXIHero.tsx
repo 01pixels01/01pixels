@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { gsap } from "gsap";
 import Link from "next/link";
 import { PIXIHead } from "@/components/experience/PIXIHead";
 
@@ -102,7 +101,7 @@ export function PIXIHero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#050505]">
+    <section className="relative min-h-[100svh] flex flex-col items-center justify-center overflow-hidden bg-[#050505]">
       {/* Particle canvas */}
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full z-0 opacity-60" />
 

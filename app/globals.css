@@ -25,7 +25,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth removido — Lenis maneja smooth scroll; tenerlos juntos causa conflicto */
 }
 
 body {
