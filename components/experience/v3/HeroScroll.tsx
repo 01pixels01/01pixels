@@ -10,14 +10,14 @@ import { PIXIHead } from "@/components/experience/PIXIHead";
 
 const CHOICES = [
   { icon: "⚡", label: "Automatizar procesos",    href: "/hiperautomatizacion",   color: "#00E5FF", id: "ia"  },
-  { icon: "📈", label: "Conseguir más clientes",  href: "/marketing-digital",     color: "#FF6B9D", id: "mkt" },
-  { icon: "🛡️", label: "Mejorar seguridad",       href: "/seguridad-inteligente", color: "#7C3AED", id: "seg" },
+  { icon: "📈", label: "Conseguir más clientes",  href: "/marketing-digital",     color: "#FF55CC", id: "mkt" },
+  { icon: "🛡️", label: "Mejorar seguridad",       href: "/seguridad-inteligente", color: "#D4AF37", id: "seg" },
 ];
 
 const ORACLES = [
-  { name: "Oráculo IA",         img: "/oraculo-ia.png",         color: "#00E5FF", label: "Hiperautomatización"  },
-  { name: "Oráculo Marketing",  img: "/oraculo-marketing.png",  color: "#FF6B9D", label: "Marketing Digital"    },
-  { name: "Oráculo Seguridad",  img: "/oraculo-seguridad.png",  color: "#7C3AED", label: "Seguridad Inteligente"},
+  { name: "AURELIUS", img: "/oraculo-ia.png",         color: "#00E5FF", label: "Oráculo IA"        },
+  { name: "LUMINA",   img: "/oraculo-marketing.png",  color: "#FF55CC", label: "Oráculo Marketing"  },
+  { name: "AEGIS",    img: "/oraculo-seguridad.png",  color: "#D4AF37", label: "Oráculo Seguridad"  },
 ];
 
 const SATS = [

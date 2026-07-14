@@ -6,42 +6,48 @@ import Link from "next/link";
 const oracles = [
   {
     id: "ia",
+    codename: "AURELIUS",
     name: "Oráculo IA",
-    tagline: "Automatización & Inteligencia Artificial",
-    desc: "Transformamos tus procesos manuales en flujos automáticos. CRM, ERP, agentes IA y automatización que trabajan mientras tú duermes.",
+    tagline: "The Oracle of Hyperautomation",
+    desc: "AURELIUS representa la inteligencia absoluta. Construye el futuro de tu organización con IA, automatización empresarial y arquitectura tecnológica de clase mundial.",
     color: "#00E5FF",
     glow: "rgba(0,229,255,0.12)",
-    icon: "🤖",
+    icon: "⚡",
     href: "/hiperautomatizacion",
-    services: ["Agentes IA", "CRM / ERP", "Appian Low-Code", "WhatsApp Business", "Automatización RPA", "IA Generativa"],
+    services: ["Agentes IA", "CRM / ERP", "Appian Low-Code", "Automatización RPA", "IA Generativa", "Business Intelligence"],
     stat: { n: "80%", label: "menos trabajo manual" },
     bg: "from-[#00E5FF]/5 to-transparent",
+    welcome: "Analizando el estado de automatización de tu empresa...",
   },
   {
     id: "mkt",
+    codename: "LUMINA",
     name: "Oráculo Marketing",
-    tagline: "Google Ads · SEO · Branding · Web",
-    desc: "Llevamos tu empresa al top de Google y convertimos clics en clientes reales. Estrategias B2B enfocadas en ROI, no en métricas de vanidad.",
-    color: "#FF6B9D",
-    glow: "rgba(255,107,157,0.12)",
+    tagline: "Guardian of Digital Growth",
+    desc: "LUMINA convierte tu marca en una máquina de crecimiento. SEO, pauta inteligente y estrategias enfocadas en ROI, no en métricas de vanidad.",
+    color: "#FF55CC",
+    glow: "rgba(255,85,204,0.12)",
     icon: "📈",
     href: "/marketing-digital",
-    services: ["Google Ads", "SEO Técnico", "Landing Pages", "Meta Ads", "Branding", "Email Marketing"],
+    services: ["Google Ads", "SEO Técnico", "Meta Ads", "Landing Pages", "Branding", "Growth Marketing"],
     stat: { n: "3.4x", label: "ROAS promedio" },
-    bg: "from-[#FF6B9D]/5 to-transparent",
+    bg: "from-[#FF55CC]/5 to-transparent",
+    welcome: "Analizando tu marca y oportunidades de crecimiento...",
   },
   {
     id: "seg",
+    codename: "AEGIS",
     name: "Oráculo Seguridad",
-    tagline: "CCTV · Biometría · Control de Acceso",
-    desc: "Protege lo que construiste. Cámaras 4K con IA de detección, control biométrico y monitoreo 24/7 desde tu celular.",
-    color: "#7C3AED",
-    glow: "rgba(124,58,237,0.12)",
+    tagline: "Guardian of Digital & Physical Protection",
+    desc: "AEGIS nunca duerme, nunca pierde un evento. Vigilancia absoluta con CCTV, biometría e IA de detección que protege tu empresa antes de que ocurra cualquier amenaza.",
+    color: "#D4AF37",
+    glow: "rgba(212,175,55,0.12)",
     icon: "🛡️",
     href: "/seguridad-inteligente",
-    services: ["Cámaras IP 4K", "Control Biométrico", "Monitoreo 24/7", "Control Vehicular", "Acceso Facial", "Alertas IA"],
+    services: ["CCTV 4K + IA", "Control Biométrico", "Monitoreo 24/7", "Reconocimiento Facial", "Control Vehicular", "Alarmas Inteligentes"],
     stat: { n: "24/7", label: "vigilancia activa" },
-    bg: "from-[#7C3AED]/5 to-transparent",
+    bg: "from-[#D4AF37]/5 to-transparent",
+    welcome: "Analizando el nivel de seguridad de tu empresa...",
   },
 ];
 
@@ -83,9 +89,12 @@ function OracleCard({ oracle, index }: { oracle: typeof oracles[0]; index: numbe
           </div>
         </div>
 
-        {/* Name */}
+        {/* Codename + Name */}
+        <p className="text-[10px] font-mono tracking-[0.25em] uppercase mb-1" style={{ color: oracle.color }}>
+          {oracle.codename}
+        </p>
         <h3 className="text-2xl font-bold text-white mb-1">{oracle.name}</h3>
-        <p className="text-xs font-mono tracking-widest mb-4" style={{ color: oracle.color }}>{oracle.tagline}</p>
+        <p className="text-xs font-mono tracking-widest mb-4 text-slate-500">{oracle.tagline}</p>
         <p className="text-slate-400 text-sm leading-relaxed mb-6">{oracle.desc}</p>
 
         {/* Services grid */}
@@ -143,7 +152,7 @@ export function OracleSection() {
           <h2 className="text-3xl sm:text-5xl font-bold text-white mb-4">
             Elige tu camino
             <br />
-            <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #00E5FF, #FF6B9D, #7C3AED)" }}>
+            <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #00E5FF, #FF55CC, #D4AF37)" }}>
               hacia la transformación
             </span>
           </h2>
