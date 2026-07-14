@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/Footer";
 import { ChatWidget } from "@/components/chat/ChatWidget";
 import { CTASection } from "@/components/sections/CTASection";
 import { PixiSocialHero } from "@/components/experience/pixi-social/PixiSocialHero";
+import { PixiSocialDemo } from "@/components/experience/pixi-social/PixiSocialDemo";
 
 export const metadata: Metadata = {
   title: "PIXI Social | 01pixels — Tus redes responden solas, tú solo apruebas",
@@ -32,6 +33,9 @@ export default function PixiSocialPage() {
       <Navbar />
       <main className="bg-[#050508]">
         <PixiSocialHero />
+
+        {/* Demo interactivo — la bandeja de PIXI en vivo */}
+        <PixiSocialDemo />
 
         {/* Canales */}
         <section className="py-20 relative">

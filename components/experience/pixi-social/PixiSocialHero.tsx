@@ -49,11 +49,11 @@ export function PixiSocialHero() {
           transition={{ duration: 0.7, delay: 0.4 }}
           className="mt-10 flex flex-wrap gap-3 justify-center"
         >
-          <Link href="/agendar" className="px-7 py-3.5 rounded-xl text-sm font-semibold text-[#050505] transition-all hover:scale-[1.03]" style={{ background: "linear-gradient(135deg,#00E5FF,#7C3AED)" }}>
-            Quiero PIXI en mis redes →
-          </Link>
-          <Link href="/servicios" className="px-7 py-3.5 rounded-xl text-sm font-semibold text-[#00E5FF] border border-[#00E5FF]/30 hover:bg-[#00E5FF]/10 transition-all">
-            Ver todos los servicios
+          <a href="#demo" className="px-7 py-3.5 rounded-xl text-sm font-semibold text-[#050505] transition-all hover:scale-[1.03]" style={{ background: "linear-gradient(135deg,#00E5FF,#7C3AED)" }}>
+            Probar la demo en vivo →
+          </a>
+          <Link href="/agendar" className="px-7 py-3.5 rounded-xl text-sm font-semibold text-[#00E5FF] border border-[#00E5FF]/30 hover:bg-[#00E5FF]/10 transition-all">
+            Quiero PIXI en mis redes
           </Link>
         </motion.div>
 
