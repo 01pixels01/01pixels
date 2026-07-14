@@ -15,9 +15,9 @@ const CHOICES = [
 ];
 
 const ORACLES = [
-  { name: "AURELIUS", img: "/oraculo-ia.png",         color: "#00E5FF", label: "Oráculo IA"        },
-  { name: "LUMINA",   img: "/oraculo-marketing.png",  color: "#FF55CC", label: "Oráculo Marketing"  },
-  { name: "AEGIS",    img: "/oraculo-seguridad.png",  color: "#D4AF37", label: "Oráculo Seguridad"  },
+  { name: "AURELIUS", img: "/assets/oracles/aurelius/hero.webp", color: "#00E5FF", label: "Oráculo IA"       },
+  { name: "LUMINA",   img: "/assets/oracles/lumina/hero.webp",   color: "#FF55CC", label: "Oráculo Marketing" },
+  { name: "AEGIS",    img: "/assets/oracles/aegis/hero.webp",    color: "#D4AF37", label: "Oráculo Seguridad" },
 ];
 
 const SATS = [
