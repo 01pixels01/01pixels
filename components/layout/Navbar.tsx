@@ -13,6 +13,7 @@ const navLinks = [
     label: "Servicios",
     href: "/servicios",
     children: [
+      { label: "PIXI Social — Ventas en redes", href: "/pixi-social", icon: "💬" },
       { label: "Hiperautomatización", href: "/hiperautomatizacion", icon: "⚡" },
       { label: "Marketing Digital", href: "/marketing-digital", icon: "📈" },
       { label: "Seguridad Inteligente", href: "/seguridad-inteligente", icon: "🛡️" },

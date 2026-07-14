@@ -4,6 +4,7 @@ import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvide
 import { HeroScroll } from "./v3/HeroScroll";
 import { OracleSection } from "./v2/OracleSection";
 import { CasesSection } from "./v2/CasesSection";
+import { PixiSocialSection } from "./v2/PixiSocialSection";
 import { CommandCenter3D } from "./v2/CommandCenter3D";
 import { TechStackSection } from "./v2/TechStackSection";
 import { WhySection } from "./v2/WhySection";
@@ -20,6 +21,8 @@ export function CinematicHome() {
       <OracleSection />
       {/* 3. Casos de éxito + KPIs */}
       <CasesSection />
+      {/* 3.5 PIXI Social — el producto de ventas en redes */}
+      <PixiSocialSection />
       {/* 4. Centro de control 3D */}
       <CommandCenter3D />
       {/* 5. Stack tecnológico — autoridad */}
