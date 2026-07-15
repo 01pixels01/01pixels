@@ -3,6 +3,7 @@
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
 import { HeroScroll } from "./v3/HeroScroll";
 import { OracleSection } from "./v2/OracleSection";
+import { TrustBadges } from "./v2/TrustBadges";
 import { CasesSection } from "./v2/CasesSection";
 import { PixiSocialSection } from "./v2/PixiSocialSection";
 import { CommandCenter3D } from "./v2/CommandCenter3D";
@@ -17,7 +18,9 @@ export function CinematicHome() {
     <SmoothScrollProvider>
       {/* 1. Hero scroll narrativo — 6 escenas */}
       <HeroScroll />
-      {/* 2. Los tres oráculos */}
+      {/* 2. Respaldos institucionales */}
+      <TrustBadges />
+      {/* 3. Los tres oráculos */}
       <OracleSection />
       {/* 3. Casos de éxito + KPIs */}
       <CasesSection />
