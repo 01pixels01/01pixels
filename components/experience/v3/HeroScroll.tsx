@@ -256,14 +256,11 @@ export function HeroScroll() {
             01pixels · transformación digital
           </motion.p>
 
-          <h1
+          <motion.h1
             className="text-4xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight max-w-3xl"
-            style={{
-              opacity:    sceneP > 0.08 ? 1 : 0,
-              transform:  `translateY(${sceneP > 0.08 ? 0 : 24}px)`,
-              filter:     `blur(${sceneP > 0.08 ? 0 : 12}px)`,
-              transition: "opacity 0.9s ease, transform 0.9s ease, filter 0.9s ease",
-            }}
+            initial={{ opacity: 0, y: 24, filter: "blur(12px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ delay: 0.7, duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
             Cada empresa
             <br />
@@ -273,7 +270,7 @@ export function HeroScroll() {
             >
               genera datos.
             </span>
-          </h1>
+          </motion.h1>
 
           {/* Scroll hint */}
           <div
