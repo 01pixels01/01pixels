@@ -35,16 +35,32 @@ export function TrustBadges() {
           initial={{ opacity: 0, y: 8 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="relative"
+          className="relative h-10 w-52 sm:w-60"
         >
-          <div className="relative h-10 w-56 sm:w-64">
-            <Image
-              src="/assets/innpulsa.png"
-              alt="iNNpulsa Colombia — Ministerio de Comercio, Industria y Turismo"
-              fill
-              className="object-contain brightness-0 invert opacity-50 hover:opacity-80 transition-opacity duration-300"
-            />
-          </div>
+          <Image
+            src="/assets/innpulsa.png"
+            alt="iNNpulsa Colombia — Ministerio de Comercio, Industria y Turismo"
+            fill
+            className="object-contain brightness-0 invert opacity-50 hover:opacity-80 transition-opacity duration-300"
+          />
+        </motion.div>
+
+        {/* Divider */}
+        <div className="hidden sm:block w-px h-8 bg-white/8" />
+
+        {/* Logo MinTIC */}
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.25 }}
+          className="relative h-12 w-16 sm:w-20"
+        >
+          <Image
+            src="/assets/mintic.png"
+            alt="Ministerio de Tecnologías de la Información y las Comunicaciones — MinTIC"
+            fill
+            className="object-contain brightness-0 invert opacity-50 hover:opacity-80 transition-opacity duration-300"
+          />
         </motion.div>
       </div>
 
