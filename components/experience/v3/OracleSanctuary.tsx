@@ -158,8 +158,52 @@ export function OracleSanctuary() {
         </p>
       </motion.div>
 
-      {/* Oracle trinity */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-4 items-end">
+      {/* Oracle trinity — desktop grid / mobile horizontal scroll */}
+      <div className="relative z-10 max-w-7xl mx-auto">
+
+        {/* Mobile: horizontal snap scroll */}
+        <div className="flex md:hidden overflow-x-auto snap-x snap-mandatory gap-4 px-6 pb-4 scrollbar-hide">
+          {ORACLES.map((o, i) => (
+            <div
+              key={o.id}
+              className="snap-center flex-none w-[78vw] flex flex-col items-center"
+            >
+              {/* Image */}
+              <div
+                className="relative w-full rounded-2xl overflow-hidden"
+                style={{ height: 340, background: "#080c18" }}
+              >
+                <div
+                  className="absolute inset-0"
+                  style={{ background: `radial-gradient(ellipse at 50% 80%, ${o.glow} 0%, transparent 65%)`, opacity: 0.25 }}
+                />
+                <Image src={o.img} alt={o.name} fill className="object-cover object-top" />
+              </div>
+              {/* Info */}
+              <div
+                className="w-full mt-3 rounded-2xl p-5"
+                style={{ background: "#0d0d0d", border: `1px solid ${o.color}25` }}
+              >
+                <p className="text-[10px] font-mono tracking-[0.25em] uppercase mb-1" style={{ color: o.color }}>{o.codename}</p>
+                <h3 className="text-lg font-bold text-white mb-2">{o.name}</h3>
+                <div className="flex items-baseline gap-2 mb-3">
+                  <span className="text-2xl font-bold" style={{ color: o.color }}>{o.stat}</span>
+                  <span className="text-xs text-slate-500">{o.statLabel}</span>
+                </div>
+                <Link
+                  href={o.href}
+                  className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-sm font-semibold"
+                  style={{ background: `${o.color}15`, border: `1px solid ${o.color}30`, color: o.color }}
+                >
+                  {o.cta} →
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop: three column temple */}
+        <div className="hidden md:grid md:grid-cols-3 gap-4 px-4 items-end">
         {ORACLES.map((o, i) => {
           const isHovered  = hovered === o.id;
           const isDimmed   = hovered !== null && !isHovered;
@@ -290,7 +334,8 @@ export function OracleSanctuary() {
             </motion.div>
           );
         })}
-      </div>
+        </div>{/* end desktop grid */}
+      </div>{/* end max-w container */}
 
       {/* Bottom CTA */}
       <motion.div
