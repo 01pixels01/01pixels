@@ -112,29 +112,17 @@ export function Scene3Oracles() {
               <div className={`absolute top-0 left-0 right-0 h-px bg-gradient-to-r ${o.accent} opacity-50`} />
 
               {/* Oracle image */}
-              <div className="relative h-52 overflow-hidden bg-gradient-to-b from-[#0d1225] to-[#080c18]">
+              <div className="relative h-64 overflow-hidden bg-[#080c18]">
                 <div
-                  className="absolute inset-0 opacity-20"
-                  style={{ background: `radial-gradient(ellipse at center, ${o.color}, transparent 70%)` }}
+                  className="absolute inset-0 opacity-30"
+                  style={{ background: `radial-gradient(ellipse at center top, ${o.color}40, transparent 70%)` }}
                 />
                 <Image
                   src={o.img}
                   alt={o.name}
                   fill
-                  className="object-cover object-center opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-                  onError={() => {}}
+                  className="object-cover object-top opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                 />
-                {/* Fallback icon if no image */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div
-                    className="w-24 h-24 rounded-2xl border flex items-center justify-center"
-                    style={{ borderColor: o.color + "40", background: o.color + "10" }}
-                  >
-                    <span className="text-4xl">
-                      {o.id === "ia" ? "🤖" : o.id === "marketing" ? "📈" : "🛡️"}
-                    </span>
-                  </div>
-                </div>
               </div>
 
               {/* Content */}
