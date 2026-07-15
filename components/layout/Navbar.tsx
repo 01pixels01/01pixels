@@ -13,9 +13,15 @@ const navLinks = [
     label: "Servicios",
     href: "/servicios",
     children: [
-      { label: "PIXI Social — Ventas en redes", href: "/pixi-social", icon: "💬" },
       { label: "Hiperautomatización", href: "/hiperautomatizacion", icon: "⚡" },
-      { label: "Marketing Digital", href: "/marketing-digital", icon: "📈" },
+      {
+        label: "Marketing Digital",
+        href: "/marketing-digital",
+        icon: "📈",
+        sub: [
+          { label: "PIXI Social — Ventas en redes", href: "/pixi-social", icon: "💬" },
+        ],
+      },
       { label: "Seguridad Inteligente", href: "/seguridad-inteligente", icon: "🛡️" },
     ],
   },
@@ -81,16 +87,27 @@ export function Navbar() {
                     />
                   </button>
                   {servicesOpen && (
-                    <div className="absolute top-full left-0 mt-1 w-56 glass rounded-xl border border-white/8 shadow-[0_16px_48px_rgba(0,0,0,0.6)] overflow-hidden">
+                    <div className="absolute top-full left-0 mt-1 w-60 glass rounded-xl border border-white/8 shadow-[0_16px_48px_rgba(0,0,0,0.6)] overflow-hidden">
                       {link.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          className="flex items-center gap-3 px-4 py-3 text-sm text-slate-300 hover:text-white hover:bg-blue-500/10 transition-all duration-200"
-                        >
-                          <span>{child.icon}</span>
-                          {child.label}
-                        </Link>
+                        <div key={child.href}>
+                          <Link
+                            href={child.href}
+                            className="flex items-center gap-3 px-4 py-3 text-sm text-slate-300 hover:text-white hover:bg-blue-500/10 transition-all duration-200"
+                          >
+                            <span>{child.icon}</span>
+                            {child.label}
+                          </Link>
+                          {"sub" in child && child.sub?.map((s) => (
+                            <Link
+                              key={s.href}
+                              href={s.href}
+                              className="flex items-center gap-3 pl-9 pr-4 py-2.5 text-xs text-slate-400 hover:text-[#FF55CC] hover:bg-[#FF55CC]/5 transition-all duration-200 border-t border-white/4"
+                            >
+                              <span>{s.icon}</span>
+                              {s.label}
+                            </Link>
+                          ))}
+                        </div>
                       ))}
                     </div>
                   )}
@@ -151,14 +168,25 @@ export function Navbar() {
                     {link.label}
                   </Link>
                   {link.children?.map((child) => (
-                    <Link
-                      key={child.href}
-                      href={child.href}
-                      className="block pl-8 pr-4 py-2 text-sm text-slate-400 hover:text-white hover:bg-blue-500/10 rounded-lg transition-colors"
-                      onClick={() => setMobileOpen(false)}
-                    >
-                      {child.icon} {child.label}
-                    </Link>
+                    <div key={child.href}>
+                      <Link
+                        href={child.href}
+                        className="block pl-8 pr-4 py-2 text-sm text-slate-400 hover:text-white hover:bg-blue-500/10 rounded-lg transition-colors"
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        {child.icon} {child.label}
+                      </Link>
+                      {"sub" in child && child.sub?.map((s) => (
+                        <Link
+                          key={s.href}
+                          href={s.href}
+                          className="block pl-12 pr-4 py-1.5 text-xs text-slate-500 hover:text-[#FF55CC] rounded-lg transition-colors"
+                          onClick={() => setMobileOpen(false)}
+                        >
+                          {s.icon} {s.label}
+                        </Link>
+                      ))}
+                    </div>
                   ))}
                 </div>
               ))}
