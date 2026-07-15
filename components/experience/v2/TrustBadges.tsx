@@ -11,7 +11,7 @@ export function TrustBadges() {
   return (
     <section
       ref={ref}
-      className="relative py-10 bg-[#050505] border-y border-white/5 overflow-hidden"
+      className="relative py-14 bg-[#050505] border-y border-white/5 overflow-hidden"
     >
       {/* Subtle glow line */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-px bg-gradient-to-r from-transparent via-[#00E5FF]/20 to-transparent" />
@@ -35,31 +35,31 @@ export function TrustBadges() {
           initial={{ opacity: 0, y: 8 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="relative h-10 w-52 sm:w-60"
+          className="relative h-16 w-64 sm:w-80"
         >
           <Image
             src="/assets/innpulsa.png"
             alt="iNNpulsa Colombia — Ministerio de Comercio, Industria y Turismo"
             fill
-            className="object-contain brightness-0 invert opacity-50 hover:opacity-80 transition-opacity duration-300"
+            className="object-contain brightness-0 invert opacity-60 hover:opacity-90 transition-opacity duration-300"
           />
         </motion.div>
 
         {/* Divider */}
-        <div className="hidden sm:block w-px h-8 bg-white/8" />
+        <div className="hidden sm:block w-px h-12 bg-white/8" />
 
         {/* Logo MinTIC */}
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.25 }}
-          className="relative h-12 w-16 sm:w-20"
+          className="relative h-20 w-24 sm:w-28"
         >
           <Image
             src="/assets/mintic.png"
             alt="Ministerio de Tecnologías de la Información y las Comunicaciones — MinTIC"
             fill
-            className="object-contain brightness-0 invert opacity-50 hover:opacity-80 transition-opacity duration-300"
+            className="object-contain brightness-0 invert opacity-60 hover:opacity-90 transition-opacity duration-300"
           />
         </motion.div>
       </div>
