@@ -5,6 +5,7 @@ import { motion, useScroll, useMotionValueEvent, useReducedMotion } from "framer
 import Image from "next/image";
 import Link from "next/link";
 import { PIXIHead } from "@/components/experience/PIXIHead";
+import { EcosystemRibbon } from "./EcosystemRibbon";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -19,24 +20,6 @@ const ORACLES = [
   { name: "LUMINA",   img: "/assets/oracles/lumina/hero.webp",   color: "#FF55CC", label: "Oráculo Marketing" },
   { name: "AEGIS",    img: "/assets/oracles/aegis/hero.webp",    color: "#D4AF37", label: "Oráculo Seguridad" },
 ];
-
-const SATS = [
-  { label: "IA",   color: "#00E5FF", angle: 0   },
-  { label: "CRM",  color: "#7C3AED", angle: 51  },
-  { label: "ERP",  color: "#00FF88", angle: 103 },
-  { label: "SEO",  color: "#FF6B9D", angle: 154 },
-  { label: "ADS",  color: "#FBBC04", angle: 206 },
-  { label: "CCTV", color: "#00E5FF", angle: 257 },
-  { label: "BIO",  color: "#7C3AED", angle: 309 },
-];
-
-// CSS keyframes para satélites (generado una sola vez fuera del componente)
-const ORBIT_KEYFRAMES = SATS.map(({ angle }, i) =>
-  `@keyframes hs-orbit-${i} {
-    from { transform: translate(-50%,-50%) rotate(${angle}deg) translateX(110px) rotate(-${angle}deg); }
-    to   { transform: translate(-50%,-50%) rotate(${angle + 360}deg) translateX(110px) rotate(-${angle + 360}deg); }
-  }`
-).join("\n");
 
 const FLOAT_KEYFRAMES = `
   @keyframes hs-float-0 { 0%,100% { transform: translateY(0px); }  50% { transform: translateY(-10px); } }
@@ -220,7 +203,7 @@ export function HeroScroll() {
   return (
     <div ref={containerRef} className="relative min-h-[700svh]">
       {/* Inject CSS keyframes for orbits and floats */}
-      <style>{ORBIT_KEYFRAMES + FLOAT_KEYFRAMES}</style>
+      <style>{FLOAT_KEYFRAMES}</style>
 
       {/* ── Sticky viewport ─────────────────────────────────────────────── */}
       <div className="sticky top-0 h-[100svh] overflow-hidden bg-[#050505]">
@@ -469,81 +452,46 @@ export function HeroScroll() {
           </p>
         </Scene>
 
-        {/* ── ESCENA 05: Ecosistema orbital ────────────────────────────── */}
-        <Scene active={scene === 4}>
+        {/* ── ESCENA 05: Ecosistema — titular monumental + cinta 3D ─────── */}
+        <Scene active={scene === 4} className="px-0">
           <p
-            className="text-[11px] font-mono text-white/25 tracking-[0.3em] uppercase mb-10"
+            className="text-[11px] font-mono text-white/35 tracking-[0.35em] uppercase mb-4"
             style={{ opacity: scene === 4 ? 1 : 0, transition: "opacity 0.8s ease" }}
           >
-            Ecosistema 01pixels
+            Ecosistema 01pixels · 8 soluciones
           </p>
 
-          {/* Sistema orbital */}
+          <h2 className="sr-only">Todo conectado. Todo inteligente. Todo operando solo.</h2>
+
           <div
-            className="relative flex items-center justify-center"
-            style={{ width: 270, height: 270 }}
-          >
-            {/* Anillos de órbita */}
-            {[270, 175, 90].map((size, ri) => (
-              <div
-                key={ri}
-                className="absolute rounded-full border border-white/[0.04]"
-                style={{ width: size, height: size }}
-              />
-            ))}
-
-            {/* Núcleo central */}
-            <div
-              className="absolute flex flex-col items-center justify-center z-10"
-              style={{
-                width: 68, height: 68,
-                borderRadius: 16,
-                background: "linear-gradient(135deg, #0a0a0a, #141414)",
-                border: "1px solid rgba(0,229,255,0.18)",
-                boxShadow: "0 0 28px rgba(0,229,255,0.12), inset 0 1px 0 rgba(0,229,255,0.06)",
-                opacity:    sceneP > 0.05 ? 1 : 0,
-                transform:  `scale(${sceneP > 0.05 ? 1 : 0.5})`,
-                transition: "opacity 0.6s ease, transform 0.7s cubic-bezier(0.34,1.56,0.64,1)",
-              }}
-            >
-              <span className="text-[9px] font-bold text-[#00E5FF]/80 font-mono tracking-wider leading-tight text-center">
-                01<br />pixels
-              </span>
-            </div>
-
-            {/* Satélites orbitando */}
-            {SATS.map((sat, i) => (
-              <div
-                key={sat.label}
-                className="absolute flex items-center justify-center"
-                style={{
-                  width: 34, height: 34,
-                  left: "50%", top: "50%",
-                  borderRadius: 9,
-                  background: `${sat.color}0d`,
-                  border: `1px solid ${sat.color}25`,
-                  opacity:    sceneP > i * 0.09 ? 1 : 0,
-                  transition: `opacity 0.5s ease ${i * 60}ms`,
-                  animation:  scene === 4 ? `hs-orbit-${i} ${9 + i * 0.7}s linear infinite` : "none",
-                  willChange: "transform",
-                }}
-              >
-                <span className="text-[8px] font-bold font-mono" style={{ color: sat.color }}>
-                  {sat.label}
-                </span>
-              </div>
-            ))}
-          </div>
-
-          <p
-            className="text-slate-600 text-sm mt-10 max-w-xs"
+            aria-hidden
+            className="font-black uppercase leading-[0.85] tracking-[-0.04em] text-[clamp(2rem,9.2vw,8.5rem)] whitespace-nowrap text-transparent bg-clip-text"
             style={{
-              opacity: sceneP > 0.75 ? 1 : 0,
+              backgroundImage: "linear-gradient(90deg, #00E5FF 0%, #7C3AED 55%, #FF55CC 100%)",
+              opacity:    sceneP > 0.02 ? 1 : 0,
+              transform:  `translateX(${(0.5 - sceneP) * 3}vw)`,
               transition: "opacity 0.8s ease",
             }}
           >
-            Todo conectado. Todo inteligente. Todo operando solo.
-          </p>
+            Todo conectado
+          </div>
+
+          <div className="w-full -mt-4 mb-3 md:-my-[clamp(1.5rem,5vw,4.5rem)] relative z-10">
+            <EcosystemRibbon active={scene === 4} progress={sceneP} reduced={!!prefersReduced} />
+          </div>
+
+          <div
+            aria-hidden
+            className="font-black uppercase leading-[0.85] tracking-[-0.04em] text-[clamp(2rem,9.2vw,8.5rem)] whitespace-nowrap text-transparent"
+            style={{
+              WebkitTextStroke: "1.5px rgba(255,255,255,0.35)",
+              opacity:    sceneP > 0.15 ? 1 : 0,
+              transform:  `translateX(${(sceneP - 0.5) * 3}vw)`,
+              transition: "opacity 0.8s ease",
+            }}
+          >
+            Operando solo
+          </div>
         </Scene>
 
         {/* ── ESCENA 06: Command Center ─────────────────────────────────── */}
