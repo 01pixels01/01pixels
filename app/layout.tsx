@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-import { PIXICursor } from "@/components/experience/PIXICursor";
+import { LightCursor } from "@/components/experience/LightCursor";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -89,7 +89,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/Logo.png" />
       </head>
       <body className="min-h-full flex flex-col bg-[#050508] text-[#F8FAFF]">
-        <PIXICursor />
+        <LightCursor />
         {children}
         {/* Google Ads */}
         <Script

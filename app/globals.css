@@ -35,10 +35,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  cursor: none;
 }
 
-a, button, [role="button"] { cursor: none; }
+/* El cursor nativo solo se oculta cuando LightCursor está activo (mouse) */
+html.has-light-cursor body,
+html.has-light-cursor a,
+html.has-light-cursor button,
+html.has-light-cursor [role="button"] { cursor: none; }
 
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: #050505; }
