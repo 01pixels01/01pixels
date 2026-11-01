@@ -20,7 +20,7 @@ export function CinematicHome() {
       <HeroScroll />
       {/* 2. Respaldos institucionales */}
       <TrustBadges />
-      {/* 3. Los tres oráculos — Panteón con zoom tipo Prezi */}
+      {/* 3. Los tres guardianes — Panteón con zoom tipo Prezi */}
       <PantheonZoom />
       {/* 3. Casos de éxito + KPIs */}
       <CasesSection />

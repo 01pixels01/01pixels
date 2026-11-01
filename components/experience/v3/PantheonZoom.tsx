@@ -14,14 +14,14 @@ import Link from "next/link";
 import { OracleSanctuary } from "./OracleSanctuary";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
-// portal = punto de la imagen (0–1) por donde la cámara "entra" al siguiente oráculo
+// portal = punto de la imagen (0–1) por donde la cámara "entra" al siguiente guardián
 
 const ORACLES = [
   {
     id: "ia",
     codename: "AURELIUS",
-    name: "Oráculo IA",
-    tagline: "The Oracle of Hyperautomation",
+    name: "Guardián IA",
+    tagline: "Guardian of Hyperautomation",
     desc: "CRM, ERP, Appian y agentes de IA que trabajan 24/7 por tu empresa.",
     color: "#00E5FF",
     href: "/hiperautomatizacion",
@@ -35,7 +35,7 @@ const ORACLES = [
   {
     id: "mkt",
     codename: "LUMINA",
-    name: "Oráculo Marketing",
+    name: "Guardiana Marketing",
     tagline: "Guardian of Digital Growth",
     desc: "SEO, pauta inteligente y estrategias enfocadas en ROI, no en métricas de vanidad.",
     color: "#FF55CC",
@@ -50,7 +50,7 @@ const ORACLES = [
   {
     id: "seg",
     codename: "AEGIS",
-    name: "Oráculo Seguridad",
+    name: "Guardián Seguridad",
     tagline: "Guardian of Digital & Physical Protection",
     desc: "Vigilancia absoluta con CCTV, biometría e IA que protege antes de que ocurra cualquier amenaza.",
     color: "#D4AF37",
@@ -67,7 +67,7 @@ const ORACLES = [
 type Oracle = (typeof ORACLES)[number];
 
 const N = ORACLES.length;
-// Línea de tiempo en "unidades": intro (1) + por oráculo [pausa (1) + transición (1)] + cierre (1)
+// Línea de tiempo en "unidades": intro (1) + por guardián [pausa (1) + transición (1)] + cierre (1)
 const UNITS = 2 * N + 2;
 const VH_PER_UNIT = 90;
 
@@ -90,7 +90,7 @@ function Overview({ u, vp }: { u: MotionValue<number>; vp: { w: number; h: numbe
   const rowW = Math.min(vp.w * 0.9, 1100);
   const cardW = rowW / 3;
   const offset = cardW; // distancia del centro de una carta lateral al centro de la pantalla
-  // La carta crece hasta el tamaño exacto de la escena del oráculo
+  // La carta crece hasta el tamaño exacto de la escena del guardián
   const zoom = Math.min(vp.w * 0.92, vp.h * 0.62, 1000) / cardW;
 
   const opacity = useTransform(u, [0, 0.6, 0.95, 2 * N + 0.25, 2 * N + 0.8], [1, 1, 0, 0, 1]);
@@ -147,7 +147,7 @@ function Overview({ u, vp }: { u: MotionValue<number>; vp: { w: number; h: numbe
   );
 }
 
-// ─── Escena de cada oráculo ──────────────────────────────────────────────────
+// ─── Escena de cada guardián ──────────────────────────────────────────────────
 
 function OracleScene({
   o,
@@ -160,11 +160,11 @@ function OracleScene({
   u: MotionValue<number>;
   active: boolean;
 }) {
-  const s = 1 + 2 * i; // inicio de la pausa en este oráculo
+  const s = 1 + 2 * i; // inicio de la pausa en este guardián
   const isLast = i === N - 1;
   const prev = i > 0 ? ORACLES[i - 1] : null;
 
-  // Entrada: nace desde el portal del oráculo anterior (o desde la vista general)
+  // Entrada: nace desde el portal del guardián anterior (o desde la vista general)
   const enterScale = useTransform(u, [s - 1, s], [prev ? 0.12 : 0.85, 1]);
   const enterX = useTransform(u, [s - 1, s], [prev ? `${(prev.portal.x - 0.5) * 100}%` : "0%", "0%"]);
   const enterY = useTransform(u, [s - 1, s], [prev ? `${(prev.portal.y - 0.5) * 100}%` : "0%", "0%"]);
@@ -191,7 +191,7 @@ function OracleScene({
       style={{ opacity, visibility, pointerEvents: active ? "auto" : "none" }}
       aria-hidden={!active}
     >
-      {/* Fondo del templo teñido con el color del oráculo */}
+      {/* Fondo del templo teñido con el color del guardián */}
       <div
         className="absolute inset-0"
         style={{ background: `radial-gradient(ellipse at 50% 55%, ${o.color}22 0%, #020305 62%)` }}
@@ -335,7 +335,7 @@ export function PantheonZoom() {
       id="panteon"
       className="relative bg-[#020305]"
       style={{ height: `${(UNITS + 1) * VH_PER_UNIT}vh` }}
-      aria-label="El Panteón 01: los oráculos de 01pixels"
+      aria-label="El Panteón 01: los guardianes de 01pixels"
     >
       <style>{`@keyframes pantheon-spin { to { transform: rotate(360deg); } }`}</style>
 
@@ -361,10 +361,10 @@ export function PantheonZoom() {
           <p className="text-slate-600 text-xs mt-3 font-mono">Sin costo · Sin compromiso</p>
         </motion.div>
 
-        {/* Navegación: un punto por oráculo */}
+        {/* Navegación: un punto por guardián */}
         <nav
           className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 flex flex-col gap-3"
-          aria-label="Oráculos"
+          aria-label="Guardianes"
         >
           {ORACLES.map((o, i) => (
             <button

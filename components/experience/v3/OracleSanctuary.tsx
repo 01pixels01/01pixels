@@ -9,8 +9,8 @@ const ORACLES = [
   {
     id: "ia",
     codename: "AURELIUS",
-    name: "Oráculo IA",
-    tagline: "The Oracle of Hyperautomation",
+    name: "Guardián IA",
+    tagline: "Guardian of Hyperautomation",
     desc: "CRM, ERP, Appian y agentes de IA que trabajan 24/7 por tu empresa.",
     color: "#00E5FF",
     glow: "rgba(0,229,255,0.5)",
@@ -26,7 +26,7 @@ const ORACLES = [
   {
     id: "mkt",
     codename: "LUMINA",
-    name: "Oráculo Marketing",
+    name: "Guardiana Marketing",
     tagline: "Guardian of Digital Growth",
     desc: "SEO, pauta inteligente y estrategias enfocadas en ROI, no en métricas de vanidad.",
     color: "#FF55CC",
@@ -43,7 +43,7 @@ const ORACLES = [
   {
     id: "seg",
     codename: "AEGIS",
-    name: "Oráculo Seguridad",
+    name: "Guardián Seguridad",
     tagline: "Guardian of Digital & Physical Protection",
     desc: "Vigilancia absoluta con CCTV, biometría e IA que protege antes de que ocurra cualquier amenaza.",
     color: "#D4AF37",

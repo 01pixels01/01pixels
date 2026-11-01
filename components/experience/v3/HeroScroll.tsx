@@ -16,9 +16,9 @@ const CHOICES = [
 ];
 
 const ORACLES = [
-  { name: "AURELIUS", img: "/assets/oracles/aurelius/hero.webp", color: "#00E5FF", label: "Oráculo IA"       },
-  { name: "LUMINA",   img: "/assets/oracles/lumina/hero.webp",   color: "#FF55CC", label: "Oráculo Marketing" },
-  { name: "AEGIS",    img: "/assets/oracles/aegis/hero.webp",    color: "#D4AF37", label: "Oráculo Seguridad" },
+  { name: "AURELIUS", img: "/assets/oracles/aurelius/hero.webp", color: "#00E5FF", label: "Guardián IA"       },
+  { name: "LUMINA",   img: "/assets/oracles/lumina/hero.webp",   color: "#FF55CC", label: "Guardiana Marketing" },
+  { name: "AEGIS",    img: "/assets/oracles/aegis/hero.webp",    color: "#D4AF37", label: "Guardián Seguridad" },
 ];
 
 const FLOAT_KEYFRAMES = `
@@ -386,7 +386,7 @@ export function HeroScroll() {
           </div>
         </Scene>
 
-        {/* ── ESCENA 04: Tres Oráculos ─────────────────────────────────── */}
+        {/* ── ESCENA 04: Tres Guardianes ─────────────────────────────────── */}
         <Scene active={scene === 3}>
           <p
             className="text-[11px] font-mono text-white/25 tracking-[0.3em] uppercase mb-10"
@@ -448,7 +448,7 @@ export function HeroScroll() {
               transition: "opacity 0.8s ease",
             }}
           >
-            Cada oráculo domina su dominio. Juntos, transforman tu empresa completa.
+            Cada guardián domina su dominio. Juntos, transforman tu empresa completa.
           </p>
         </Scene>
 

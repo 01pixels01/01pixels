@@ -8,7 +8,7 @@ const oracles = [
   {
     id: "ia",
     codename: "AURELIUS",
-    name: "Oráculo IA",
+    name: "Guardián IA",
     title: "Hiperautomatización",
     description: "CRM, ERP, Appian y agentes de IA que trabajan 24/7 por tu empresa.",
     color: "#00E5FF",
@@ -23,7 +23,7 @@ const oracles = [
   {
     id: "marketing",
     codename: "LUMINA",
-    name: "Oráculo Marketing",
+    name: "Guardiana Marketing",
     title: "Marketing Digital",
     description: "Estrategias data-driven que convierten visitantes en clientes leales.",
     color: "#FF55CC",
@@ -38,7 +38,7 @@ const oracles = [
   {
     id: "seguridad",
     codename: "AEGIS",
-    name: "Oráculo Seguridad",
+    name: "Guardián Seguridad",
     title: "Seguridad Inteligente",
     description: "Vigilancia absoluta con IA que detecta amenazas antes de que ocurran.",
     color: "#D4AF37",
@@ -77,7 +77,7 @@ export function Scene3Oracles() {
           Los tres pilares
         </div>
         <h2 className="text-5xl sm:text-6xl font-bold text-white mb-4">
-          Los Oráculos
+          Los Guardianes
           <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-orange-400 to-emerald-400">
             del negocio

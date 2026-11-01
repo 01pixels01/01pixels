@@ -7,8 +7,8 @@ const oracles = [
   {
     id: "ia",
     codename: "AURELIUS",
-    name: "Oráculo IA",
-    tagline: "The Oracle of Hyperautomation",
+    name: "Guardián IA",
+    tagline: "Guardian of Hyperautomation",
     desc: "AURELIUS representa la inteligencia absoluta. Construye el futuro de tu organización con IA, automatización empresarial y arquitectura tecnológica de clase mundial.",
     color: "#00E5FF",
     glow: "rgba(0,229,255,0.12)",
@@ -22,7 +22,7 @@ const oracles = [
   {
     id: "mkt",
     codename: "LUMINA",
-    name: "Oráculo Marketing",
+    name: "Guardiana Marketing",
     tagline: "Guardian of Digital Growth",
     desc: "LUMINA convierte tu marca en una máquina de crecimiento. SEO, pauta inteligente y estrategias enfocadas en ROI, no en métricas de vanidad.",
     color: "#FF55CC",
@@ -37,7 +37,7 @@ const oracles = [
   {
     id: "seg",
     codename: "AEGIS",
-    name: "Oráculo Seguridad",
+    name: "Guardián Seguridad",
     tagline: "Guardian of Digital & Physical Protection",
     desc: "AEGIS nunca duerme, nunca pierde un evento. Vigilancia absoluta con CCTV, biometría e IA de detección que protege tu empresa antes de que ocurra cualquier amenaza.",
     color: "#D4AF37",
@@ -147,7 +147,7 @@ export function OracleSection() {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/3 text-slate-400 text-xs font-mono tracking-widest uppercase mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-[#00E5FF] animate-pulse" />
-            Los tres oráculos
+            Los tres guardianes
           </div>
           <h2 className="text-3xl sm:text-5xl font-bold text-white mb-4">
             Elige tu camino
