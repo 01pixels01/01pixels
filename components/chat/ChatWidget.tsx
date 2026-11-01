@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { X, Send, Minimize2, User } from "lucide-react";
 import { getContextualGreeting } from "@/lib/ai/prompts";
-import { PIXIHead } from "@/components/experience/PIXIHead";
+import { PixiAgent3D, PixiAvatar } from "./PixiAgent3D";
 
 function PIXIOrbitIcon({ size = 40 }: { size?: number }) {
   const r = size / 2;
@@ -80,7 +80,6 @@ export function ChatWidget() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [showPulse, setShowPulse] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -105,12 +104,6 @@ export function ChatWidget() {
       inputRef.current?.focus();
     }
   }, [messages, open, minimized]);
-
-  // Show pulse after 5 seconds
-  useEffect(() => {
-    const t = setTimeout(() => setShowPulse(true), 5000);
-    return () => clearTimeout(t);
-  }, []);
 
   // Detect lead data in assistant response and send to API
   const detectAndCaptureLead = useCallback(async (allMessages: Message[]) => {
@@ -138,13 +131,14 @@ export function ChatWidget() {
     }
   }, []);
 
-  const sendMessage = useCallback(async () => {
-    if (!input.trim() || loading) return;
+  const sendMessage = useCallback(async (text?: string) => {
+    const content = (text ?? input).trim();
+    if (!content || loading) return;
 
     const userMsg: Message = {
       id: Date.now().toString(),
       role: "user",
-      content: input.trim(),
+      content,
       timestamp: new Date(),
     };
 
@@ -256,11 +250,11 @@ export function ChatWidget() {
             minimized ? "h-14" : "h-[540px]"
           )}
         >
-          <div className="flex flex-col h-full glass rounded-2xl border border-blue-500/20 shadow-[0_0_48px_rgba(0,0,0,0.8),0_0_24px_rgba(59,130,246,0.15)] overflow-hidden">
+          <div className="flex flex-col h-full bg-[#0b0d13] rounded-2xl border border-blue-500/20 shadow-[0_0_48px_rgba(0,0,0,0.8),0_0_24px_rgba(59,130,246,0.15)] overflow-hidden">
             {/* Header */}
             <div className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-[#00E5FF]/10 to-[#7C3AED]/10 border-b border-white/5">
               <div className="relative">
-                <PIXIHead size={40} trackLocal />
+                <PixiAvatar size={42} />
                 <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full border-2 border-[#0a0b14]" />
               </div>
               <div className="flex-1">
@@ -299,7 +293,7 @@ export function ChatWidget() {
                     >
                       {msg.role === "assistant" && (
                         <div className="flex-shrink-0 mt-0.5">
-                          <PIXIHead size={28} />
+                          <PixiAvatar size={28} />
                         </div>
                       )}
                       <div
@@ -335,10 +329,7 @@ export function ChatWidget() {
                       {quickOptions.map((opt) => (
                         <button
                           key={opt}
-                          onClick={() => {
-                            setInput(opt);
-                            setTimeout(() => sendMessage(), 50);
-                          }}
+                          onClick={() => sendMessage(opt)}
                           className="text-left text-xs px-3 py-2 rounded-xl border border-blue-500/20 text-blue-300 hover:bg-blue-500/10 hover:border-blue-500/40 transition-all duration-200"
                         >
                           {opt}
@@ -364,7 +355,7 @@ export function ChatWidget() {
                       className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500/50 focus:bg-white/8 transition-all disabled:opacity-50"
                     />
                     <button
-                      onClick={sendMessage}
+                      onClick={() => sendMessage()}
                       disabled={!input.trim() || loading}
                       className="w-10 h-10 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center transition-all duration-200 flex-shrink-0 shadow-[0_0_16px_rgba(37,99,235,0.4)]"
                       aria-label="Enviar mensaje"
@@ -382,33 +373,23 @@ export function ChatWidget() {
         </div>
       )}
 
-      {/* Floating PIXI button */}
-      <button
-        onClick={() => {
-          setOpen(!open);
-          setShowPulse(false);
-          setMinimized(false);
-        }}
-        className={cn(
-          "fixed bottom-6 right-4 sm:right-6 z-50 w-16 h-16 rounded-2xl bg-[#0d0d0d] border border-[#00E5FF]/25 flex items-center justify-center shadow-[0_0_32px_rgba(0,229,255,0.2)] hover:shadow-[0_0_48px_rgba(0,229,255,0.4)] transition-all duration-300 hover:scale-110 active:scale-95 hover:border-[#00E5FF]/50",
-          open && "rotate-0"
-        )}
-        aria-label="Abrir chat con PIXI, asesor IA de 01pixels"
-      >
-        {open ? (
+      {/* PIXI en 3D abre el chat; con el chat abierto queda el botón de cerrar */}
+      {open ? (
+        <button
+          onClick={() => setOpen(false)}
+          className="fixed bottom-6 right-4 sm:right-6 z-50 w-16 h-16 rounded-2xl bg-[#0d0d0d] border border-[#00E5FF]/25 flex items-center justify-center shadow-[0_0_32px_rgba(0,229,255,0.2)] hover:shadow-[0_0_48px_rgba(0,229,255,0.4)] transition-all duration-300 hover:scale-110 active:scale-95 hover:border-[#00E5FF]/50"
+          aria-label="Cerrar chat con PIXI"
+        >
           <X className="w-6 h-6 text-[#00E5FF]" />
-        ) : (
-          <PIXIHead size={48} trackLocal />
-        )}
-        {showPulse && !open && (
-          <>
-            <span className="absolute inset-0 rounded-2xl bg-[#00E5FF] animate-ping opacity-10" />
-            <span className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-[#00FF88] rounded-full border-2 border-[#050505] flex items-center justify-center">
-              <span className="text-[8px] font-bold text-[#050505]">IA</span>
-            </span>
-          </>
-        )}
-      </button>
+        </button>
+      ) : (
+        <PixiAgent3D
+          onOpen={() => {
+            setOpen(true);
+            setMinimized(false);
+          }}
+        />
+      )}
     </>
   );
 }
