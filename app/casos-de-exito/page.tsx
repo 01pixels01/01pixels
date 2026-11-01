@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 const cases = [
   {
-    client: "LogiTrans S.A.",
+    client: "Empresa de logística",
     sector: "Logística",
     service: "automatizacion",
     serviceLabel: "Hiperautomatización",
@@ -21,7 +21,7 @@ const cases = [
     solution: "CRM personalizado + automatización de rutas + notificaciones WhatsApp en tiempo real.",
   },
   {
-    client: "Clínica Salud Total",
+    client: "Clínica privada",
     sector: "Salud",
     service: "automatizacion",
     serviceLabel: "Hiperautomatización",
@@ -29,7 +29,7 @@ const cases = [
     solution: "Sistema de agendamiento automático + historias clínicas digitales + recordatorios WhatsApp.",
   },
   {
-    client: "BioNatura Foods",
+    client: "Marca de alimentos",
     sector: "Alimentos",
     service: "marketing",
     serviceLabel: "Marketing Digital",
@@ -37,7 +37,7 @@ const cases = [
     solution: "Branding completo + SEO + campañas Meta Ads + tienda online + email marketing.",
   },
   {
-    client: "Conjunto Res. El Prado",
+    client: "Conjunto residencial",
     sector: "Residencial",
     service: "seguridad",
     serviceLabel: "Seguridad Inteligente",
