@@ -57,13 +57,6 @@ const PASOS = [
   { k: "CONTINUO", t: "Escalamiento", d: "Medimos y hacemos crecer lo que funciona.", dot: "bg-[#101114]" },
 ];
 
-// Cifras tomadas de la web actual: confirmar que son verificables antes de publicar.
-const CASOS = [
-  { tag: "LOGÍSTICA · AURELIUS", big: "-87%", sub: "de tiempo en procesamiento de pedidos", antes: "6 horas manuales al día", despues: "45 minutos automatizados", color: "text-[#005ED9]" },
-  { tag: "SALUD · AURELIUS", big: "+200%", sub: "citas agendadas sin sumar personal", antes: "Recepción manual y llamadas perdidas", despues: "Agente de IA 24/7 con recordatorios", color: "text-[#005ED9]" },
-  { tag: "E-COMMERCE · LUMINA", big: "3,4×", sub: "ventas en 90 días", antes: "ROAS de 1,2 en Google Ads", despues: "ROAS de 4,1 optimizado", color: "text-[#101114]" },
-];
-
 function Kicker({ children, dark = false, color = "#FF7D55" }: { children: React.ReactNode; dark?: boolean; color?: string }) {
   return (
     <div className={`${PX} inline-flex items-center gap-2.5 text-sm ${dark ? "text-[#A5F3FC]" : "text-[#005ED9]"}`}>
@@ -331,32 +324,6 @@ export function BlueprintHome() {
                 <div className="text-[15px] text-[#5B6472]">Founder &amp; CEO · Ingeniero de Sistemas</div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CASOS */}
-      <section id="casos" className="bg-white">
-        <div className="mx-auto max-w-[1240px] px-6 py-24 sm:px-8 lg:py-28">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div className="max-w-[640px]">
-              <div className={`${PX} text-sm text-[#005ED9]`}>CASOS</div>
-              <h2 className={`${H} mt-4 text-4xl font-bold leading-[1.05] tracking-[-0.03em] sm:text-5xl`}>Antes y después, en números.</h2>
-            </div>
-            <Link href="/casos-de-exito" className="inline-flex min-h-11 items-center text-base font-semibold text-[#005ED9] underline-offset-4 hover:underline">Ver todos los casos</Link>
-          </div>
-          <div className="mt-14 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6">
-            {CASOS.map((c) => (
-              <article key={c.tag} className="border border-[#E3E8EF] p-8">
-                <div className={`${PX} text-[13px] text-[#5B6472]`}>{c.tag}</div>
-                <div className={`${H} mt-6 text-[64px] font-bold leading-none tracking-[-0.03em] ${c.color}`}>{c.big}</div>
-                <p className="mt-2 text-[15px] text-[#3E4552]">{c.sub}</p>
-                <div className="mt-6 grid grid-cols-2 gap-4 border-t border-[#E3E8EF] pt-5 text-sm leading-normal">
-                  <div><div className={`${PX} text-[11px] text-[#5B6472]`}>ANTES</div>{c.antes}</div>
-                  <div><div className={`${PX} text-[11px] text-[#5B6472]`}>DESPUÉS</div>{c.despues}</div>
-                </div>
-              </article>
-            ))}
           </div>
         </div>
       </section>
