@@ -94,12 +94,12 @@ export function Navbar({ variant = "dark" }: { variant?: "dark" | "light" } = {}
                     />
                   </button>
                   {servicesOpen && (
-                    <div className="absolute top-full left-0 mt-1 w-60 glass rounded-xl border border-white/8 shadow-[0_16px_48px_rgba(0,0,0,0.6)] overflow-hidden">
+                    <div className={cn("absolute top-full left-0 mt-1 w-60 rounded-xl border overflow-hidden", light ? "bg-white border-[#E3E8EF] shadow-[0_16px_48px_rgba(16,17,20,0.14)]" : "glass border-white/8 shadow-[0_16px_48px_rgba(0,0,0,0.6)]")}>
                       {link.children.map((child) => (
                         <div key={child.href}>
                           <Link
                             href={child.href}
-                            className="flex items-center gap-3 px-4 py-3 text-sm text-slate-300 hover:text-white hover:bg-blue-500/10 transition-all duration-200"
+                            className={cn("flex items-center gap-3 px-4 py-3 text-sm transition-all duration-200", light ? "text-[#101114] hover:text-[#005ED9] hover:bg-[#005ED9]/5" : "text-slate-300 hover:text-white hover:bg-blue-500/10")}
                           >
                             <span>{child.icon}</span>
                             {child.label}
@@ -108,7 +108,7 @@ export function Navbar({ variant = "dark" }: { variant?: "dark" | "light" } = {}
                             <Link
                               key={s.href}
                               href={s.href}
-                              className="flex items-center gap-3 pl-9 pr-4 py-2.5 text-xs text-slate-400 hover:text-[#FF55CC] hover:bg-[#FF55CC]/5 transition-all duration-200 border-t border-white/4"
+                              className={cn("flex items-center gap-3 pl-9 pr-4 py-2.5 text-xs transition-all duration-200 border-t", light ? "text-[#3E4552] hover:text-[#005ED9] hover:bg-[#005ED9]/5 border-[#E3E8EF]" : "text-slate-400 hover:text-[#FF55CC] hover:bg-[#FF55CC]/5 border-white/4")}
                             >
                               <span>{s.icon}</span>
                               {s.label}
