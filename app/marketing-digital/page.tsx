@@ -21,11 +21,11 @@ const services = [
   { icon: <TrendingUp className="w-6 h-6" />, title: "Diseño Web", desc: "Sitios web y landing pages de alto rendimiento que convierten visitantes en leads calificados.", color: "text-emerald-400" },
 ];
 
-const metrics = [
-  { value: "3.5x", label: "ROAS promedio en campañas de ads" },
-  { value: "+280%", label: "Tráfico orgánico en 6 meses (SEO)" },
-  { value: "40%", label: "Reducción en costo por lead" },
-  { value: "15 días", label: "Tiempo promedio para ver primeros resultados" },
+const pillars = [
+  { value: "Ventas", label: "Medimos por ventas y leads, no por clics" },
+  { value: "A medida", label: "Estrategia según tu mercado y tu presupuesto" },
+  { value: "Integrado", label: "SEO, pauta y contenido trabajando juntos" },
+  { value: "Claridad", label: "Reportes de qué funciona y qué no" },
 ];
 
 export default function MarketingDigitalPage() {
@@ -68,9 +68,9 @@ export default function MarketingDigitalPage() {
                 </div>
               </div>
 
-              {/* Metrics */}
+              {/* Pilares */}
               <div className="grid grid-cols-2 gap-4">
-                {metrics.map((m) => (
+                {pillars.map((m) => (
                   <div key={m.label} className="glass rounded-xl p-5 border border-purple-500/15 text-center hover:border-purple-500/30 transition-colors">
                     <div className="text-2xl font-bold text-gradient mb-1">{m.value}</div>
                     <p className="text-slate-400 text-xs leading-tight">{m.label}</p>
