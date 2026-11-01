@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ChatWidget } from "@/components/chat/ChatWidget";
-import { CinematicHome } from "@/components/experience/CinematicHome";
+import { BlueprintHome } from "@/components/experience/blueprint/BlueprintHome";
 
 export const metadata: Metadata = {
   title: "01pixels | Transformación Digital con IA, Automatización y Seguridad",
@@ -13,9 +13,9 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
-      <Navbar />
+      <Navbar variant="light" />
       <main>
-        <CinematicHome />
+        <BlueprintHome />
       </main>
       <Footer />
       <ChatWidget />

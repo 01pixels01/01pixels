@@ -1,0 +1,24 @@
+/* Lenguaje "Blueprint 01": retícula de plano técnico de la marca 01PIXELS */
+.gridLight {
+  background-color: #f5f7fa;
+  background-image:
+    linear-gradient(#e3e8ef 1px, transparent 1px),
+    linear-gradient(90deg, #e3e8ef 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.gridDark {
+  background-color: #0b0c0f;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.gridBlue {
+  background-color: #005ed9;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.09) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
