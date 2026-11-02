@@ -305,19 +305,35 @@ export function BlueprintHome() {
 
       {/* QUIÉN ESTÁ DETRÁS */}
       <section id="nosotros" className="border-y border-[#E3E8EF] bg-[#F5F7FA]">
-        <div className="mx-auto flex max-w-[1240px] flex-wrap items-center gap-16 px-6 py-24 sm:px-8 lg:py-28">
-          <div className="min-w-0 flex-[1_1_380px]">
-            <div className="relative aspect-[4/5] max-w-[440px] bg-[#4A4C52]">
-              <Image src="/assets/team/jair-cortes.jpg" alt="Jair Cortes, fundador y CEO de 01PIXELS, con saco azul oscuro y camisa blanca" fill sizes="(max-width: 768px) 100vw, 440px" className="object-cover" />
-              <span aria-hidden="true" className="absolute -bottom-3 -right-3 h-12 w-12 bg-[#FF7D55]" />
-              <span aria-hidden="true" className="absolute -left-3 -top-3 h-6 w-6 bg-[#005ED9]" />
+        <div className="mx-auto max-w-[1240px] px-6 py-20 sm:px-8 lg:py-24">
+          <div className={`${PX} text-sm text-[#005ED9]`}>QUIÉN ESTÁ DETRÁS</div>
+          <Link
+            href="/agendar"
+            aria-label="Construyamos juntos el futuro: agendar diagnóstico gratuito"
+            className="group relative mt-6 block focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[#005ED9]"
+          >
+            <div className="relative aspect-[1290/721] overflow-hidden bg-[#0B0C0F] md:aspect-[2000/721]">
+              <Image
+                src="/assets/team/banner-jair-pixi-movil.jpg"
+                alt="Jair Cortes, fundador y CEO de 01PIXELS, en su oficina junto a PIXI y el logo de la empresa"
+                fill
+                sizes="100vw"
+                className="object-cover md:hidden"
+              />
+              <Image
+                src="/assets/team/banner-jair-pixi.jpg"
+                alt="Jair Cortes, fundador y CEO de 01PIXELS, en su oficina junto a PIXI y el logo de la empresa. Innovación digital con propósito: transformamos empresas y personas con tecnología, inteligencia y estrategia."
+                fill
+                sizes="(min-width: 1240px) 1176px, 100vw"
+                className="hidden object-cover transition-transform duration-500 group-hover:scale-[1.015] md:block"
+              />
             </div>
-          </div>
-          <div className="min-w-0 flex-[1_1_480px]">
-            <div className={`${PX} text-sm text-[#005ED9]`}>QUIÉN ESTÁ DETRÁS</div>
-            <blockquote className={`${H} mt-5 text-3xl font-semibold leading-[1.15] tracking-[-0.025em] sm:text-[40px]`}>«La tecnología no reemplaza el criterio. Lo hace más rápido.»</blockquote>
-            <p className="mt-7 max-w-[560px] text-[17px] leading-relaxed text-[#3E4552]">Somos un equipo de ingenieros y creativos. Diseñamos cada solución con las personas que la van a usar y respondemos por los resultados después de la entrega.</p>
-            <div className="mt-8 flex items-center gap-3.5">
+            <span aria-hidden="true" className="absolute -bottom-3 -right-3 h-12 w-12 bg-[#FF7D55]" />
+            <span aria-hidden="true" className="absolute -left-3 -top-3 h-6 w-6 bg-[#005ED9]" />
+          </Link>
+          <div className="mt-12 flex flex-wrap items-end justify-between gap-8">
+            <blockquote className={`${H} min-w-0 max-w-[760px] text-3xl font-semibold leading-[1.15] tracking-[-0.025em] sm:text-[40px]`}>«La tecnología no reemplaza el criterio. Lo hace más rápido.»</blockquote>
+            <div className="flex items-center gap-3.5">
               <span className="inline-block h-11 w-2 bg-[#005ED9]" aria-hidden="true" />
               <div className="leading-snug">
                 <div className="text-[17px] font-semibold">Jair Cortes</div>
@@ -325,6 +341,7 @@ export function BlueprintHome() {
               </div>
             </div>
           </div>
+          <p className="mt-6 max-w-[640px] text-[17px] leading-relaxed text-[#3E4552]">Somos un equipo de ingenieros y creativos. Diseñamos cada solución con las personas que la van a usar y respondemos por los resultados después de la entrega.</p>
         </div>
       </section>
 
