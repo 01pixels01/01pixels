@@ -84,10 +84,6 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <head>
-        <link rel="icon" href="/Logo.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/Logo.png" />
-      </head>
       <body className="min-h-full flex flex-col bg-[#050508] text-[#F8FAFF]">
         <LightCursor />
         {children}
